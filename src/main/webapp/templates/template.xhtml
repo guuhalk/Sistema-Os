@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+	</f:facet>
+
+	<title>Os</title>
+
+</h:head>
+
+<h:body style="margin: 0; padding: 0;">
+
+<b:growl id="menssagem" globalOnly="true" placementFrom="bottom"
+         show-detail="true" show-summary="false" allowDismiss="true"
+         delay="10000" escape="true" />
+
+
+	<div id="header">	
+		<h:form>
+			<b:navBar brandHref="#" inverse="true">
+			<a href="../index.xhtml">OS</a>
+					
+					<b:commandLink style="
+								   	color: #9d9d9d; 
+									float: right;
+									margin-top: 27px;
+									text-decoration: none; 
+									font-size: 100%;
+									margin-left:2%;"
+									value="Sair" 
+									action="#{loginBean.sair}"
+									icon="log-in"  /> 
+					
+					<b:commandLink style="
+								    color: #9d9d9d; 
+								    margin-top: 27px;
+								    margin-left:2%;
+								    float: right;
+								    text-decoration: none;
+								    font-size: 100%;"  
+								    value="Bem Vindo: #{indexBean.usuarioLogado}" 
+								    icon="user"
+								     /> 
+
+			</b:navBar>
+		</h:form> 
+	</div>
+	
+	<ui:insert name="content"></ui:insert>
+
+	<div id="aaa"
+		style="width: 100%; position: fixed; background-color: #000; z-index: 99999; height: 100%; top: 0px; opacity: 0.6; right: 0px;"></div>
+
+
+	<h:outputStylesheet name="lab4soft.css" library="css" />
+
+	<script>
+		$(document).ready(function() {
+			$('#aaa').hide();
+		});
+	</script>
+
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsucess="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+
+		<h:graphicImage value="/resources/imagens/loading.gif"
+			style="width:100%;" />
+	</p:dialog>
+
+</h:body>
+
+</html>

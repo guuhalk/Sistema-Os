@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+
+	<ui:define name="header">
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<b:container>
+				<br></br>
+				<b:column span="10">
+
+					<h3>Solicitação - Os</h3>
+					<hr></hr>
+					<br></br>
+
+				</b:column>
+
+				<b:column span="2">
+					<b:commandLink look="default" value="Pesquisar Os"
+						icon="glyphicon glyphicon-search"
+						style=" padding: 3%; font-size: 90%;" />
+				</b:column>
+
+				<hr></hr>
+				<br></br>
+
+
+
+				<b:column span="6">
+
+					<h4>OS - Abertas</h4>
+
+					<b:panel styleClass="panel-default-semBorda">
+						<b:listLinks>
+							<b:navLink header="Chamados PROVISORIO" />
+							<ui:repeat var="os">
+								<b:navCommandLink />
+							</ui:repeat>
+							<b:messages />
+						</b:listLinks>
+					</b:panel>
+
+
+
+				</b:column>
+
+
+				<b:column span="4">
+					<h4>Nova Solicitação</h4>
+					<hr></hr>
+					<h:panelGrid columns="1" cellpadding="1">
+						<b:inputText label="Titulo:" labelStyle="width:80px;" />
+						<b:inputTextarea label="Descrição: " style="width:361px;" />
+
+						<b:radiobutton value="#{newOsBean.radio}">
+							<f:selectItem itemValue="1" itemLabel="Manutenção" />
+							<f:selectItem itemValue="2" itemLabel="Desenvolvimento" />
+						</b:radiobutton>
+
+ 						<p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+ 						<br></br>
+ 						
+						<b:commandLink look="success" value="Salvar" />
+
+
+					</h:panelGrid>
+				</b:column>
+
+			</b:container>
+		</h:form>
+	</ui:define>
+</ui:composition>

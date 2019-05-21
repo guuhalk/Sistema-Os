@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+	
+	<ui:define name="header">
+	</ui:define>
+	
+
+
+	<ui:define name="content">
+	<b:growl id="msg" />
+		<b:container>
+			<h:form>
+			<!-- CABEÇALHO -->
+			<b:row >
+				<b:column>
+					<h3>Usuario</h3>
+					<b:commandLink action="#{indexBean.redirecionarParaIndex}" 
+						style="float:right;"> <b:icon value="glyphicon glyphicon-arrow-left" style="top: -37px !important;
+						font-size: 112%; color: #333"  /> </b:commandLink>
+					<hr></hr>
+					<br></br>
+					<br></br>
+				
+				</b:column>
+
+			</b:row>
+			
+			<!-- CONTEUDO -->
+			<b:row>
+			 
+			 <b:button value="Novo" look="success" icon="glyphicon glyphicon-plus"
+              onclick="$('.responsiveModalPseudoClass').modal();tableWidgetVar.DataTable().responsive.recalc();"/>
+			 
+		
+			
+			
+				<b:dataTable  info="false" responsive="true" value="#{aceUsuarioBean.listaUsuarios}" var="usu">
+					<b:dataTableColumn label="Nome"   value= "#{usu.usuNome}" />
+					<b:dataTableColumn label="Login"  value= "#{usu.usuLogin}" />
+					<b:dataTableColumn label="Email " value= "#{usu.usuEmail}" />
+					<b:dataTableColumn label="Staus"  value= "#{usu.status}" />
+					<b:dataTableColumn label="Açoes"> 
+						<b:commandLink styleClass="btn-block-table" look="primary" icon="glyphicon glyphicon-pencil"  
+							value="Editar" style=" margin-left: 17%; margin-right: 3%; width: 40%;" />
+						<b:commandLink styleClass="btn-block-table" look="danger" icon="glyphicon glyphicon-remove" 
+							value="Deletar" style="width: 50%;"  />  
+					</b:dataTableColumn>
+					
+				</b:dataTable>
+				
+				<b:modal title="Cadastro De Usuario" styleClass="responsiveModalPseudoClass" id="responsiveModal">
+					<h:form>
+					<b:row>
+					<b:column col-md="6">
+					
+						 <b:inputText label="Nome:" 	value="#{aceUsuarioBean.nome}" />
+						 <b:inputText label="Usuario:"  value="#{aceUsuarioBean.login}" />
+						 <b:selectOneMenu  label="Perfil" value="#{aceUsuarioBean.perfil}"   >
+						      <f:converter converterId="genericConverter" />
+						     <f:selectItems itemLabel="#{per.prfDescricao}" 
+						    				itemValue="#{per.prfId}" 
+						    				value="#{aceUsuarioBean.listaPerfil}" 
+						    				var="per"/> </b:selectOneMenu>
+			
+					</b:column>
+					<b:column col-md="6">
+					
+						 <b:inputText label="Cpf:"      value="#{aceUsuarioBean.cpf}" />
+						 <b:inputText label="Senha:"    type="password" value="#{aceUsuarioBean.senha}" />
+    					 <b:selectBooleanCheckbox caption="Ativo"  />
+    					
+    						<b:commandButton style="float:right; margin-left:3%;" value="Salvar" look="success" actionListener="#{aceUsuarioBean.teste}"/>
+						    <b:button style="float:right;" value="Fechar" dismiss="modal" />
+							
+    					</b:column>
+    				</b:row>
+    				    	
+
+			
+					</h:form>			
+					</b:modal>
+			
+				</b:row>
+			</h:form>
+		</b:container>
+	</ui:define>
+</ui:composition>

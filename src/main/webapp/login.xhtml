@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Lab4Soft</title>
+        <meta name="author" content="Riccardo Massera"></meta>
+        <h:outputStylesheet name="login.css" library="css" />
+        
+    </h:head>
+    
+    <h:body style="padding-top: 60px; ">
+        <b:container>
+            <h:form styleClass="form-signin" prependId="false">
+                
+                <b:image library="imagen" name="user-login.png" styleClass="logo" />
+
+                <b:inputText id="email" placeholder="Usuário" value="#{loginBean.login}" >
+                    <f:facet name="prepend">
+                        <b:icon name="user" />
+                    </f:facet>
+                </b:inputText>
+                <b:inputText id="password" placeholder="Senha" type="password" value="#{loginBean.senha}">
+                    <f:facet name="prepend">
+                        <b:icon name="glyphicon glyphicon-lock" />
+                    </f:facet>
+                </b:inputText>
+                
+                <b:commandButton look="primary btn-block" styleClass="btn-login" value="Logar" size="lg" action="#{loginBean.logar}" />
+
+            </h:form>
+        </b:container>
+    </h:body>
+</html>

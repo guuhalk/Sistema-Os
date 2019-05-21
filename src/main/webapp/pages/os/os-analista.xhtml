@@ -1,0 +1,132 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+	
+	<ui:define name="header">
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form>
+		<b:container>
+		<br></br>
+		
+		<b:column span="10">
+		
+			<h3>Atendimento - Os </h3>
+					<hr></hr>
+				<br></br>
+		<br></br>
+		<br></br>
+		</b:column>
+		
+		
+		<b:column span="2">
+				<b:commandLink look="default" 
+							   value="Alocar" 
+							   action="#{analistaOsBean.redirecionarPaginasParaAlocar}" 
+							   icon="glyphicon glyphicon-th-list" 
+				               style=" padding: 3%; font-size: 90%;"/>
+				
+				<b:commandLink look="default" 
+							   value="Pesquisar Os" 
+							   icon="glyphicon glyphicon-search" 
+							   style=" padding: 3%; font-size: 90%;"
+							   action="#{analistaOsBean.redirecionarPaginasParaPesquisarOs}" />
+		</b:column>
+
+		<hr></hr>
+		<br></br>
+		<br></br>
+		<br></br>
+		
+			<b:column span="10">
+
+				<!-- Em Desenvolvimento -->
+
+				<b:panel collapsible="false" styleClass="panel-default-semBorda">
+				  <f:facet name="heading">
+				    <b:badge style="margin-left:10px; background-color:#5cb85c" value="Desenvolvimento"  />
+				  </f:facet>
+				  
+				  <b:dataTable  searching="false" border="none" info="false"  >
+				  	 <b:dataTableColumn label="Id" />
+				  	 <b:dataTableColumn label="Descricao" />
+				  	 <b:dataTableColumn label="Status" />
+				  	 <b:dataTableColumn label="Responsavel" />
+				  	 
+				  </b:dataTable>
+
+				</b:panel>
+				<br></br>
+				<br></br>
+				
+				<!-- Aguardando Resposta -->
+				
+				<b:panel collapsible="false" styleClass="panel-default-semBorda">
+				  <f:facet name="heading">
+				    <b:badge style="margin-left:10px; background-color:#5cb85c" value="Aguardando Resposta"  />
+				  </f:facet>
+				  
+				  <b:dataTable  searching="false" border="none" info="false" >
+				  	 <b:dataTableColumn label="Id" />
+				  	 <b:dataTableColumn label="Descricao" />
+				  	 <b:dataTableColumn label="Status" />
+				  	 <b:dataTableColumn label="Responsavel" />
+				  	 
+				  </b:dataTable>
+
+				</b:panel>
+				<br></br>
+				<br></br>
+				
+				<!-- Aguardando Terceiro -->
+				
+				<b:panel collapsible="false" styleClass="panel-default-semBorda">
+				  <f:facet name="heading">
+				    <b:badge style="margin-left:10px; background-color:#5cb85c" value="Aguardando Terceiro"  />
+				  </f:facet>
+				  
+				  <b:dataTable  searching="false" border="none" info="false" >
+				  	 <b:dataTableColumn label="Id" />
+				  	 <b:dataTableColumn label="Descricao" />
+				  	 <b:dataTableColumn label="Status" />
+				  	 <b:dataTableColumn label="Responsavel" />
+				  	 
+				  </b:dataTable>
+
+				</b:panel>
+				<br></br>
+				<br></br>
+				
+				<!-- Teste -->
+				
+				<b:panel collapsible="false" class="panel-default-semBorda">
+				  <f:facet name="heading">
+				    <b:badge style="margin-left:10px; background-color:#5cb85c" value="Em Teste"  />
+				  </f:facet>
+				  
+				  <b:dataTable  searching="false" border="none" info="false" >
+				  	 <b:dataTableColumn label="Id" />
+				  	 <b:dataTableColumn label="Descricao" />
+				  	 <b:dataTableColumn label="Status" />
+				  	 <b:dataTableColumn label="Responsavel" />
+				  	 
+				  </b:dataTable>
+
+				</b:panel>
+				
+			
+			</b:column>
+
+	
+			<b:column span="2">
+				
+			</b:column>
+
+		</b:container>
+	</h:form>
+	</ui:define>
+</ui:composition>

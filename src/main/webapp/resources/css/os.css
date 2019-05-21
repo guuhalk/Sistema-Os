@@ -1,0 +1,40 @@
+body{
+	margin: 0;
+}
+
+#cabecalho{
+	background:black;
+    width: 100%;
+    height: 50px;
+}
+
+
+/*Tira o contador do datatable*/
+div.dataTables_wrapper div.dataTables_length label{
+	
+	font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    display: none;
+}
+
+.btn-block-table {
+	
+	display: inline !important;
+    width: 100%;
+}
+
+.panel-default-semBorda{
+	
+	border-color: white !important;
+}
+
+.form-inline{
+	
+	font-size: 85% !important;
+}
+
+
+td, th {
+	padding: 6px !important;
+}

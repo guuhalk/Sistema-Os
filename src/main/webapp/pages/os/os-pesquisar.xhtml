@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+
+	<ui:define name="header">
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<b:container>
+				<br></br>
+				<b:column span="10">
+
+					<h3>Pesquisar - Os</h3>
+					<b:commandLink style="float:right;"> <b:icon value="glyphicon glyphicon-arrow-left" style="top: -37px !important;
+					font-size: 112%; color: #333"  /> </b:commandLink>
+					<hr></hr>
+					<br></br>
+
+				</b:column>
+
+				<b:column span="2"></b:column>
+
+
+				<b:column span="6">
+
+					<h4>OS - Pesquisar</h4>
+
+					<hr></hr>
+					<h:panelGrid columns="2" cellpadding="5">
+
+						<b:inputText label="Id: " labelStyle="width:80px;" />
+						<b:inputText label="Titulo: " labelStyle="width:80px;" />
+						<b:inputText label="Responsavel: " labelStyle="width:80px;" />
+						<b:inputText label="Status:  " labelStyle="width:80px;" />
+						<b:dateTimePicker show-time="false" label="Data Abertura: " labelStyle="width:80px; "/>
+						<b:inputText label="Usuario Abertura :" labelStyle="width:80px;" />
+
+						<b:commandLink look="success" value="Pesquisar"
+							style="width:206%;" />
+
+					</h:panelGrid>
+
+				</b:column>
+
+
+				<b:column span="4">
+					<h4>Os</h4>
+					<hr></hr>
+					<b:panel styleClass="panel-default-semBorda">
+						<b:listLinks>
+							<b:navLink header="Chamados PROVISORIO" />
+							<ui:repeat var="os">
+								<b:navCommandLink />
+							</ui:repeat>
+							<b:messages />
+						</b:listLinks>
+					</b:panel>
+				</b:column>
+
+			</b:container>
+		</h:form>
+	</ui:define>
+</ui:composition>
