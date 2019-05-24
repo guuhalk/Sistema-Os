@@ -9,14 +9,41 @@
 	
 	<ui:define name="content">
 		<h:form>
-		<b:container>
+		<b:container style="margin: 0;">
 			
-			<b:column span="4"></b:column>
+			<b:column span="2">
+			<h4>Menu</h4>
+			<hr></hr>
+			<br></br>
+			
+			
+			<b:commandLink look="default" value="Cadastro" action="#{configBean.validaCadastro}" />
+			
+			
+			</b:column>
 
 		
-				<b:column span="12">
-			
-			
+				<b:column span="10" style=" padding-left: 15%;" >
+		
+				<ui:fragment rendered ="#{configBean.rotinaCadastro}">
+				
+				<h1>Cadastros</h1>
+				<hr></hr>
+				<br></br>
+				<br></br>
+				<b:commandLink look="default" style=" padding: 3%; width: 20%; height: auto; display: inline-block;" 
+							   action="#{configBean.redirecionarPaginasUsuario}" icon="user">
+							   <br></br>Usuario</b:commandLink>
+							
+				<b:commandLink look="default" style=" margin-top: 0px; padding: 3%; width: 20%; height: auto; 
+							   display: inline-block; margin-left:5%;" action="#{indexBean.redirecionarPaginasRelatorios}" 
+							   icon="check">
+							   <br></br>Perfil</b:commandLink>			
+				
+				
+				
+				</ui:fragment>
+				
 					
 				</b:column>
 

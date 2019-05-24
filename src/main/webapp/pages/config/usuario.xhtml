@@ -11,9 +11,9 @@
 
 
 	<ui:define name="content">
-	<b:growl id="msg" />
 		<b:container>
 			<h:form>
+	
 			<!-- CABEÇALHO -->
 			<b:row >
 				<b:column>
@@ -38,42 +38,52 @@
 		
 			
 			
-				<b:dataTable  info="false" responsive="true" value="#{aceUsuarioBean.listaUsuarios}" var="usu">
+				<b:dataTable info="false" responsive="true" value="#{usuarioBean.listaUsuarios}" var="usu" border="false" paginated="false" >
 					<b:dataTableColumn label="Nome"   value= "#{usu.usuNome}" />
 					<b:dataTableColumn label="Login"  value= "#{usu.usuLogin}" />
 					<b:dataTableColumn label="Email " value= "#{usu.usuEmail}" />
-					<b:dataTableColumn label="Staus"  value= "#{usu.status}" />
+					<b:dataTableColumn label="Staus"  value= "#{usu.status}" width="10%"/>
 					<b:dataTableColumn label="Açoes"> 
 						<b:commandLink styleClass="btn-block-table" look="primary" icon="glyphicon glyphicon-pencil"  
-							value="Editar" style=" margin-left: 17%; margin-right: 3%; width: 40%;" />
-						<b:commandLink styleClass="btn-block-table" look="danger" icon="glyphicon glyphicon-remove" 
-							value="Deletar" style="width: 50%;"  />  
+							value="Editar" style=" display: inline-block; width: 40%;">
+							<f:setPropertyActionListener value="#{usu}" target="#{usuarioBean.usuarioSelecionado}" />
+						</b:commandLink>
+		
+						<b:commandLink  look="danger" icon="glyphicon glyphicon-remove" 
+							value="Deletar" style=" display: inline-block; width: 40%; margin-top: 0%; margin-left: 2%;">  
+							<f:setPropertyActionListener value="#{usu}" target="#{usuarioBean.usuarioSelecionado}" />
+							 <p:confirm header="Confirmation" message="Are you sure?"  />
+						</b:commandLink>
+					
+					
+					
 					</b:dataTableColumn>
 					
 				</b:dataTable>
-				
-				<b:modal title="Cadastro De Usuario" styleClass="responsiveModalPseudoClass" id="responsiveModal">
+
+				<b:modal title="Cadastro De Usuario" styleClass="responsiveModalPseudoClass" id="responsiveModal" closable="false">
 					<h:form>
 					<b:row>
 					<b:column col-md="6">
 					
-						 <b:inputText label="Nome:" 	value="#{aceUsuarioBean.nome}" />
-						 <b:inputText label="Usuario:"  value="#{aceUsuarioBean.login}" />
-						 <b:selectOneMenu  label="Perfil" value="#{aceUsuarioBean.perfil}"   >
+						 <b:inputText label="Nome:" 	value="#{usuarioBean.nome}" />
+						 <b:inputText label="Usuario:"  value="#{usuarioBean.login}" />
+						 <b:selectOneMenu  label="Perfil" value="#{usuarioBean.perfil}"   >
 						      <f:converter converterId="genericConverter" />
 						     <f:selectItems itemLabel="#{per.prfDescricao}" 
 						    				itemValue="#{per.prfId}" 
-						    				value="#{aceUsuarioBean.listaPerfil}" 
+						    				value="#{usuarioBean.listaPerfil}" 
 						    				var="per"/> </b:selectOneMenu>
 			
 					</b:column>
 					<b:column col-md="6">
 					
-						 <b:inputText label="Cpf:"      value="#{aceUsuarioBean.cpf}" />
-						 <b:inputText label="Senha:"    type="password" value="#{aceUsuarioBean.senha}" />
+						 <b:inputText label="Cpf:"      value="#{usuarioBean.cpf}" />
+						 <b:inputText label="Senha:"    type="password" value="#{usuarioBean.senha}" />
+    					 <b:inputText label="Email:"      value="#{usuarioBean.email}" />
     					 <b:selectBooleanCheckbox caption="Ativo"  />
     					
-    						<b:commandButton style="float:right; margin-left:3%;" value="Salvar" look="success" actionListener="#{aceUsuarioBean.teste}"/>
+    						<b:commandButton style="float:right; margin-left:3%;" value="Salvar" look="success" actionListener="#{usuarioBean.cadastrarUsuario()}"/>
 						    <b:button style="float:right;" value="Fechar" dismiss="modal" />
 							
     					</b:column>
@@ -85,6 +95,9 @@
 					</b:modal>
 			
 				</b:row>
+				
+
+				
 			</h:form>
 		</b:container>
 	</ui:define>

@@ -21,7 +21,7 @@ public class PerfilDao extends GenericDao<Perfil> {
 		try {
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append(" SELECT DISTINCT PRF_ID,PRF_ATIVO,PRF_DESCRICAO FROM ACE_PERFIL ");
+			sb.append(" select * from perfil ");
 			
 			Query query = em.createNativeQuery(sb.toString());
 			

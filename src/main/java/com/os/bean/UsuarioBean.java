@@ -14,7 +14,7 @@ import com.os.model.Usuario;
 
 @ManagedBean
 @ViewScoped
-public class UsuarioOsBean  extends GenericBean{
+public class UsuarioBean  extends GenericBean{
 
 	
 	private String nome;
@@ -25,15 +25,13 @@ public class UsuarioOsBean  extends GenericBean{
 	private Integer status;
 	private boolean ativo;
 	private Integer perfil;
-	
-	
-	
-	
 	private Usuario usuario;
-	
 	private List<Usuario> listaUsuarios;
 	private List<Perfil> listaPerfil;
+	private Usuario usuarioSelecionado;
 
+	
+	
 	@PostConstruct
 	public void init() {
 		
@@ -43,39 +41,67 @@ public class UsuarioOsBean  extends GenericBean{
 	}
 	
 
-	
 	public void cadastrarUsuario() {
-		
-		if(nome == null){
-			menssagemErro("Favor Preencher o nome.");
-		}
-		if(login == null){
-			menssagemErro("Favor Preencher o login.");
-		}
-		if(senha == null){
-			menssagemErro("Favor Preencher a senha.");
+
+		if(validaCampos()) {
+			new UsuarioDao().cadastroDeUsuario(nome, login, senha, email, cpf, status, perfil);
+			menssagemSucesso("Usuario cadastrado com sucesso");
+			limparCampos();
 		}
 
-		if(cpf == null){
-			menssagemErro("Favor Preencher o cpf.");
-		}
-
-		if(perfil == 0){
-			menssagemErro("Favor selecionar um perfil.");
-		}
-		if(ativo == false){
-			status = 0;
-		}else {
-			status = 1;
-		}
-		
-		new UsuarioDao().cadastroDeUsuario(nome, login, senha, email, cpf, status, perfil);
-		
-		menssagemSucesso("Usuario cadastrado com sucesso");
-		
-		
 	}
 
+	public void limparCampos() {
+		
+		nome=""; login=""; email="";
+		cpf=""; status=0; ativo=false;
+		perfil=0;		
+	}
+	
+	
+	public boolean validaCampos() {
+		
+		if(nome != null && !nome.isEmpty()){
+			if(login != null && !login.isEmpty()){
+				if(senha != null && !senha.isEmpty()) {
+					if(cpf != null && !cpf.isEmpty()) {
+						if(perfil != 0 && perfil != null) {
+							if(email != null && !email.isEmpty()) {
+								if(ativo == false){
+									status = 0;
+									return true;
+								}else {
+									status = 1;
+									return true;
+								}
+							}else {
+								menssagemAviso("Favor Preencher um email.");
+								return false;
+							}
+						}else {
+							menssagemAviso("Favor selecionar um perfil.");
+							return false;
+						}	
+					}else {
+						menssagemAviso("Favor Preencher o cpf.");
+						return false;
+					}
+				}else {
+					menssagemAviso("Favor Preencher a senha.");	
+					return false;
+				}			
+			}else {
+				menssagemAviso("Favor Preencher o login.");
+				return false;
+			}
+		}else {
+			menssagemAviso("Favor Preencher o nome.");
+			return false;
+		}
+		
+	}
+	
+	 
 	
 	//GATTERS AND SETTERS
 	public List<Usuario> getListaUsuarios() {
@@ -182,6 +208,16 @@ public class UsuarioOsBean  extends GenericBean{
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+
+	public Usuario getUsuarioSelecionado() {
+		return usuarioSelecionado;
+	}
+
+
+	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+		this.usuarioSelecionado = usuarioSelecionado;
 	}
 }
 	

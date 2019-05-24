@@ -44,7 +44,7 @@ public class UsuarioDao extends GenericDao<Usuario> {
 		try {
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append(" SELECT USU_ID,USU_ATIVO,USU_CPF,USU_EMAIL,USU_LOGIN,USU_NOME  FROM ACE_USUARIO ");
+			sb.append("select * from usuario; ");
 			
 			Query query = em.createNativeQuery(sb.toString());
 			
@@ -82,10 +82,7 @@ public class UsuarioDao extends GenericDao<Usuario> {
 	
 	}
 	
-	
 
-
-	
 	public Usuario cadastroDeUsuario(String nome , String login, String senha, String email, 
 			String cpf, Integer status, Integer perfil) {
 		
@@ -95,7 +92,7 @@ public class UsuarioDao extends GenericDao<Usuario> {
 		try {
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("INSERT INTO ACE_USUARIO VALUES (NULL,:status,:cpf,:email,:login,:nome,:senha,:perfil)");
+			sb.append("INSERT INTO usuario VALUES (NULL,:status,:cpf,:email,:login,:nome,:senha,:perfil)");
 			
 			em.getTransaction().begin();
 			Query query = em.createNativeQuery(sb.toString());
@@ -132,7 +129,6 @@ public class UsuarioDao extends GenericDao<Usuario> {
 	}
 	
 	
-	
-	
+
 }
 
