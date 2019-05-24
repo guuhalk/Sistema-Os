@@ -30,30 +30,6 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `os_db`.`os_chamado`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `os_db`.`os_chamado` (
-  `os_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `os_descricao` VARCHAR(500) NOT NULL,
-  `os_status` INT(11) NOT NULL DEFAULT '1',
-  `os_data` DATETIME NOT NULL,
-  `os_tipo` INT(11) NOT NULL,
-  `os_titulo` VARCHAR(50) NOT NULL,
-  `os_usuabertura` VARCHAR(50) NOT NULL,
-  `os_analista` VARCHAR(50) NULL DEFAULT NULL,
-  PRIMARY KEY (`os_id`),
-  CONSTRAINT `os_status_FK`
-    FOREIGN KEY (`os_status`)
-    REFERENCES `os_db`.`os_status` (`sts_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
-
-CREATE INDEX `os_status_FK` ON `os_db`.`os_chamado` (`os_status` ASC) VISIBLE;
-
-
--- -----------------------------------------------------
 -- Table `os_db`.`perfil`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `os_db`.`perfil` (
@@ -90,6 +66,36 @@ CREATE INDEX `FK5B4D8B0E56B5EA44` ON `os_db`.`usuario` (`prf_id` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
+-- Table `os_db`.`os_chamado`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `os_db`.`os_chamado` (
+  `os_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `os_status` INT(11) NOT NULL DEFAULT '1',
+  `os_data` DATETIME NOT NULL,
+  `os_tipo` INT(11) NOT NULL,
+  `os_titulo` VARCHAR(50) NOT NULL,
+  `os_usuabertura` VARCHAR(50) NOT NULL,
+  `os_analista` VARCHAR(50) NULL DEFAULT NULL,
+  `os_descricao` VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (`os_id`),
+  CONSTRAINT `os_status_FK`
+    FOREIGN KEY (`os_status`)
+    REFERENCES `os_db`.`os_status` (`sts_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `usu_analista_FK`
+    FOREIGN KEY (`os_id`)
+    REFERENCES `os_db`.`usuario` (`usu_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE INDEX `os_status_FK` ON `os_db`.`os_chamado` (`os_status` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
 -- Table `os_db`.`os_interacao`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `os_db`.`os_interacao` (
@@ -98,6 +104,7 @@ CREATE TABLE IF NOT EXISTS `os_db`.`os_interacao` (
   `usu_id` INT(11) NOT NULL,
   `in_data` DATETIME NOT NULL,
   `in_descricao` BLOB NOT NULL,
+  `in_anexo` LONGBLOB NULL DEFAULT NULL,
   PRIMARY KEY (`in_id`),
   CONSTRAINT `os_id_FK`
     FOREIGN KEY (`os_id`)

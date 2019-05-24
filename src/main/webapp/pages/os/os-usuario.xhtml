@@ -9,7 +9,7 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<h:form>
+		<h:form enctype="multipart/form-data">
 			<b:container>
 				<br></br>
 				<b:column span="10">
@@ -57,15 +57,15 @@
 						<b:inputText label="Titulo:" labelStyle="width:80px;" />
 						<b:inputTextarea label="Descrição: " style="width:361px;" />
 
-						<b:radiobutton value="#{newOsBean.radio}">
+						<b:radiobutton value="#{newOsBean.tipo}">
 							<f:selectItem itemValue="1" itemLabel="Manutenção" />
 							<f:selectItem itemValue="2" itemLabel="Desenvolvimento" />
 						</b:radiobutton>
 
- 						<p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+ 						<p:fileUpload value="#{newOsBean.upload}" mode="simple" skinSimple="true"/>
  						<br></br>
  						
-						<b:commandLink look="success" value="Salvar" />
+						<b:commandLink look="success" ajax="false" value="Salvar" action="#{newOsBean.insereChamado}" />
 
 
 					</h:panelGrid>
