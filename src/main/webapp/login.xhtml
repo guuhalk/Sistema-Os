@@ -15,7 +15,8 @@
     <h:body style="padding-top: 60px; ">
         <b:container>
             <h:form styleClass="form-signin" prependId="false">
-                
+               	<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
+     		 		show-detail="true" show-summary="false" delay="2000" escape="true" /> 
                
                 <b:inputText id="email" placeholder="Usuário" value="#{loginBean.login}" >
                     <f:facet name="prepend">

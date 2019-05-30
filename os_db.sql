@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `os_db`.`usuario` (
     FOREIGN KEY (`prf_id`)
     REFERENCES `os_db`.`perfil` (`prf_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX `FK5B4D8B0E56B5EA44` ON `os_db`.`usuario` (`prf_id` ASC) VISIBLE;
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `os_db`.`os_chamado` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE INDEX `os_status_FK` ON `os_db`.`os_chamado` (`os_status` ASC) VISIBLE;
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `os_db`.`os_interacao` (
   `os_id` INT(11) NOT NULL,
   `usu_id` INT(11) NOT NULL,
   `in_data` DATETIME NOT NULL,
-  `in_descricao` BLOB NOT NULL,
+  `in_descricao` BLOB NULL DEFAULT NULL,
   `in_anexo` LONGBLOB NULL DEFAULT NULL,
   PRIMARY KEY (`in_id`),
   CONSTRAINT `os_id_FK`
@@ -117,6 +117,7 @@ CREATE TABLE IF NOT EXISTS `os_db`.`os_interacao` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX `os_id_FK` ON `os_db`.`os_interacao` (`os_id` ASC) VISIBLE;

@@ -1,5 +1,5 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
@@ -10,6 +10,9 @@
 
 	<ui:define name="content">
 		<h:form enctype="multipart/form-data">
+			<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
+     		 		show-detail="true" show-summary="false" delay="2000" escape="true" /> 
+			
 			<b:container>
 				<br></br>
 				<b:column span="10">
@@ -24,6 +27,12 @@
 					<b:commandLink look="default" value="Pesquisar Os"
 						icon="glyphicon glyphicon-search"
 						style=" padding: 3%; font-size: 90%;" />
+						
+					<b:commandLink look="success" value="Abrir Chamado"
+						icon="glyphicon glyphicon-plus"
+						style=" padding: 3%; font-size: 90%;"
+						onclick="$('.modalPseudoClass').modal();tableWidgetVar.DataTable().responsive.recalc()" />
+
 				</b:column>
 
 				<hr></hr>
@@ -31,47 +40,55 @@
 
 
 
-				<b:column span="6">
+				<b:column span="8">
 
 					<h4>OS - Abertas</h4>
-
-					<b:panel styleClass="panel-default-semBorda">
-						<b:listLinks>
-							<b:navLink header="Chamados PROVISORIO" />
-							<ui:repeat var="os">
-								<b:navCommandLink />
-							</ui:repeat>
-							<b:messages />
-						</b:listLinks>
-					</b:panel>
+					
+					<ui:repeat value="#{newOsBean.listaChamado}" var="os">
+						<b:panel styleClass="panel-default-semBorda">
+							<b:panelGrid columns="4">
+								<p:outputLabel value="#{os.osId}"  />
+								<b:label text="#{os.statusFormatado}" severity="success"/>
+								<p:outputLabel value="#{os.tituloOs}"  />
+								<p:outputLabel value="#{os.dataOs}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:outputLabel>	
+							</b:panelGrid>
+						</b:panel>
+					</ui:repeat>
 
 
 
 				</b:column>
-
-
-				<b:column span="4">
-					<h4>Nova Solicitação</h4>
-					<hr></hr>
-					<h:panelGrid columns="1" cellpadding="1">
-						<b:inputText label="Titulo:" labelStyle="width:80px;" />
-						<b:inputTextarea label="Descrição: " style="width:361px;" />
-
-						<b:radiobutton value="#{newOsBean.tipo}">
-							<f:selectItem itemValue="1" itemLabel="Manutenção" />
-							<f:selectItem itemValue="2" itemLabel="Desenvolvimento" />
-						</b:radiobutton>
-
- 						<p:fileUpload value="#{newOsBean.upload}" mode="simple" skinSimple="true"/>
- 						<br></br>
- 						
-						<b:commandLink look="success" ajax="false" value="Salvar" action="#{newOsBean.insereChamado}" />
-
-
-					</h:panelGrid>
-				</b:column>
-
+				
 			</b:container>
 		</h:form>
+
+		<h:form>
+			<b:modal title="Novo Chamado" styleClass="modalPseudoClass" id="responsiveModal"
+				closable="false">
+			
+				<b:inputText label="Titulo:" labelStyle="width:80px;" value="#{newOsBean.titulo}"/>
+				<b:inputTextarea label="Descrição: "  value="#{newOsBean.descricao}" />
+ 
+				<b:radiobutton value="#{newOsBean.tipo}">
+					<f:selectItem itemValue="1" itemLabel="Manutenção" />
+					<f:selectItem itemValue="2" itemLabel="Desenvolvimento" />
+				</b:radiobutton>
+
+ 				<p:fileUpload label="Enviar Anexo" value="#{newOsBean.upload}" mode="simple" skinSimple="true"/>
+ 				<br></br>
+	
+				<f:facet name="footer">
+					<div id="rodape" style="display: flex; float:right;">
+						<b:button style="float:right;" value="Fechar" dismiss="modal" />
+						<b:commandLink look="success" ajax="false" value="Salvar" action="#{newOsBean.insereChamado}" style="float:right;"/>	
+					</div>
+				</f:facet>
+
+			</b:modal>
+		</h:form>
+
+
 	</ui:define>
 </ui:composition>

@@ -13,6 +13,8 @@ public class OsChamado {
 	private String usuAberturaOs;
 	private String analistaOs;
 	private String descricaoOs;
+	private String statusFormatado; 
+	private String corStatus;
 	
 	
 	
@@ -65,6 +67,68 @@ public class OsChamado {
 	}
 	public void setDescricaoOs(String descricaoOs) {
 		this.descricaoOs = descricaoOs;
+	}
+	
+	public String getStatusFormatado() {
+		if(statusOs == 1) {
+			this.statusFormatado = "Desenvolvimento";
+		}
+		
+		if(statusOs == 2) {
+			this.statusFormatado = "Aguardando Usuario";
+		}
+		
+		if(statusOs == 3) {
+			this.statusFormatado = "Aguardando Terceiros";
+		}
+		
+		if(statusOs == 4) {
+			this.statusFormatado = "Teste";
+		}
+		
+		if(statusOs == 5) {
+			this.statusFormatado = "Fechado";
+		}
+		
+		if(statusOs == 6) {
+			this.statusFormatado = "Reprovado";
+		}
+
+		return statusFormatado;
+	}
+	public void setStatusFormatado(String statusFormatado) {
+		this.statusFormatado = statusFormatado;
+	}
+	public String getCorStatus() {
+
+		if(statusOs == 1) {
+			this.corStatus = "success";
+		}
+		
+		if(statusOs == 2) {
+			this.corStatus = "default";
+		}
+		
+		if(statusOs == 3) {
+			this.corStatus = "primary";
+		}
+		
+		if(statusOs == 4) {
+			this.corStatus = "Warning";
+		}
+		
+		if(statusOs == 5) {
+			this.corStatus = "info";
+		}
+		
+		if(statusOs == 6) {
+			this.corStatus = "Danger";
+		}
+		
+		return corStatus;
+	}
+	public void setCorStatus(String corStatus) {
+		this.corStatus = corStatus;
 	}
 
 }
