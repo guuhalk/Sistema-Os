@@ -13,12 +13,14 @@ public class OsChamado {
 	private String usuAberturaOs;
 	private String analistaOs;
 	private String descricaoOs;
+	private Date dataPrevisaoOs;
+	private Date dataFechamento;
+	
+	
 	private String statusFormatado; 
 	private String corStatus;
 	
-	
-	
-	
+		
 	// GATTERS AND SETTERS 
 	public Integer getOsId() {
 		return osId;
@@ -129,6 +131,18 @@ public class OsChamado {
 	}
 	public void setCorStatus(String corStatus) {
 		this.corStatus = corStatus;
+	}
+	public Date getDataPrevisaoOs() {
+		return dataPrevisaoOs;
+	}
+	public void setDataPrevisaoOs(Date dataPrevisaoOs) {
+		this.dataPrevisaoOs = dataPrevisaoOs;
+	}
+	public Date getDataFechamento() {
+		return dataFechamento;
+	}
+	public void setDataFechamento(Date dataFechamento) {
+		this.dataFechamento = dataFechamento;
 	}
 
 }

@@ -10,6 +10,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema os_db
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `os_db` ;
 
 -- -----------------------------------------------------
 -- Schema os_db
@@ -30,6 +31,32 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `os_db`.`os_chamado`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `os_db`.`os_chamado` (
+  `os_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `os_status` INT(11) NOT NULL DEFAULT '1',
+  `os_data` DATETIME NOT NULL,
+  `os_tipo` INT(11) NULL DEFAULT NULL,
+  `os_titulo` VARCHAR(50) NOT NULL,
+  `os_usuabertura` VARCHAR(50) NOT NULL,
+  `os_analista` VARCHAR(50) NULL DEFAULT NULL,
+  `os_descricao` VARCHAR(1000) NOT NULL,
+  `os_dataprevisao` DATETIME NULL DEFAULT NULL,
+  `os_datafechamento` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`os_id`),
+  INDEX `os_status_FK` (`os_status` ASC) VISIBLE,
+  CONSTRAINT `os_status_FK`
+    FOREIGN KEY (`os_status`)
+    REFERENCES `os_db`.`os_status` (`sts_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 22
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
 -- Table `os_db`.`perfil`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `os_db`.`perfil` (
@@ -38,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `os_db`.`perfil` (
   `prf_descricao` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`prf_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -55,44 +82,13 @@ CREATE TABLE IF NOT EXISTS `os_db`.`usuario` (
   `usu_senha` VARCHAR(255) NOT NULL,
   `prf_id` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`usu_id`),
+  INDEX `FK5B4D8B0E56B5EA44` (`prf_id` ASC) VISIBLE,
   CONSTRAINT `FK5B4D8B0E56B5EA44`
     FOREIGN KEY (`prf_id`)
     REFERENCES `os_db`.`perfil` (`prf_id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8;
-
-CREATE INDEX `FK5B4D8B0E56B5EA44` ON `os_db`.`usuario` (`prf_id` ASC) VISIBLE;
-
-
--- -----------------------------------------------------
--- Table `os_db`.`os_chamado`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `os_db`.`os_chamado` (
-  `os_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `os_status` INT(11) NOT NULL DEFAULT '1',
-  `os_data` DATETIME NOT NULL,
-  `os_tipo` INT(11) NOT NULL,
-  `os_titulo` VARCHAR(50) NOT NULL,
-  `os_usuabertura` VARCHAR(50) NOT NULL,
-  `os_analista` VARCHAR(50) NULL DEFAULT NULL,
-  `os_descricao` VARCHAR(1000) NOT NULL,
-  PRIMARY KEY (`os_id`),
-  CONSTRAINT `os_status_FK`
-    FOREIGN KEY (`os_status`)
-    REFERENCES `os_db`.`os_status` (`sts_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `usu_analista_FK`
-    FOREIGN KEY (`os_id`)
-    REFERENCES `os_db`.`usuario` (`usu_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 5
-DEFAULT CHARACTER SET = utf8mb4;
-
-CREATE INDEX `os_status_FK` ON `os_db`.`os_chamado` (`os_status` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
@@ -106,6 +102,8 @@ CREATE TABLE IF NOT EXISTS `os_db`.`os_interacao` (
   `in_descricao` BLOB NULL DEFAULT NULL,
   `in_anexo` LONGBLOB NULL DEFAULT NULL,
   PRIMARY KEY (`in_id`),
+  INDEX `os_id_FK` (`os_id` ASC) VISIBLE,
+  INDEX `usu_id_FK` (`usu_id` ASC) VISIBLE,
   CONSTRAINT `os_id_FK`
     FOREIGN KEY (`os_id`)
     REFERENCES `os_db`.`os_chamado` (`os_id`)
@@ -117,12 +115,8 @@ CREATE TABLE IF NOT EXISTS `os_db`.`os_interacao` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8;
-
-CREATE INDEX `os_id_FK` ON `os_db`.`os_interacao` (`os_id` ASC) VISIBLE;
-
-CREATE INDEX `usu_id_FK` ON `os_db`.`os_interacao` (`usu_id` ASC) VISIBLE;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

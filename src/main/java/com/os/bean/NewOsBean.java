@@ -10,7 +10,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.UploadedFile;
 
-import com.os.dao.OsChamadoDao;
+import com.os.dao.NewOsDao;
 import com.os.generico.GenericBean;
 import com.os.model.OsChamado;
 
@@ -23,7 +23,6 @@ public class NewOsBean extends GenericBean {
 	
 	private String titulo;
 	private String descricao;
-	private Integer tipo;
 	private UploadedFile upload;
 	private Integer idUsuarioLogado;
 	private String nomeUsuarioLogado;
@@ -38,7 +37,7 @@ public class NewOsBean extends GenericBean {
 	
 		idUsuarioLogado = buscaUsuarioSessao().getUsuId();
 		nomeUsuarioLogado = buscaUsuarioSessao().getUsuNome();
-		listaChamado = new OsChamadoDao().buscarChamadoDoUsuario(nomeUsuarioLogado);
+		listaChamado = new NewOsDao().buscarChamadoDoUsuario(nomeUsuarioLogado);
 		
 		
 	}
@@ -48,7 +47,7 @@ public class NewOsBean extends GenericBean {
 		verificaSePossuiAnexo();
 		if(validaCampos()) {
 			
-			if(new OsChamadoDao().insereChamado(tipo, titulo, descricao, nomeUsuarioLogado, fileBlob,idUsuarioLogado)) {
+			if(new NewOsDao().insereChamado(titulo, descricao, nomeUsuarioLogado, fileBlob,idUsuarioLogado)) {
 				menssagemSucesso("Chamado cadastrado com sucesso!");
 			}else {
 				menssagemErro("Erro ao cadastrar o chamado");
@@ -75,7 +74,7 @@ public class NewOsBean extends GenericBean {
 	
 	public boolean validaCampos() {
 		
-		if((titulo == null || titulo.isEmpty()) && (descricao.isEmpty() || descricao == null) && (tipo == null)) {
+		if((titulo == null || titulo.isEmpty()) && (descricao.isEmpty() || descricao == null)) {
 			menssagemAviso("Favor preencher todas informações.");
 			return false;
 		
@@ -83,13 +82,8 @@ public class NewOsBean extends GenericBean {
 			
 			if(titulo != null || !titulo.isEmpty()) {
 				if(descricao != null || !descricao.isEmpty()) {
-					if(tipo != null) {
-						return true;
-					}else {
-						menssagemAviso("O Tipo é Obrigatorio.");
-						return false;
-					}
-					
+					return true;
+				
 				}else {
 					menssagemAviso("A Descrição é Obrigatoria.");
 					return false;
@@ -118,12 +112,6 @@ public class NewOsBean extends GenericBean {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-	public Integer getTipo() {
-		return tipo;
-	}
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
 	}
 
 	public UploadedFile getUpload() {

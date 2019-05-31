@@ -9,25 +9,27 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<h:form enctype="multipart/form-data">
 			<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
-     		 		show-detail="true" show-summary="false" delay="2000" escape="true" /> 
-			
-			<b:container>
+				show-detail="true" show-summary="false" delay="2000" escape="true" />
+
+			<b:container id="teste">
 				<br></br>
+
+
 				<b:column span="10">
 
-					<h3>Solicitação - Os</h3>
+					<h3>Chamados - Os</h3>
 					<hr></hr>
 					<br></br>
 
 				</b:column>
 
+
 				<b:column span="2">
 					<b:commandLink look="default" value="Pesquisar Os"
 						icon="glyphicon glyphicon-search"
 						style=" padding: 3%; font-size: 90%;" />
-						
+
 					<b:commandLink look="success" value="Abrir Chamado"
 						icon="glyphicon glyphicon-plus"
 						style=" padding: 3%; font-size: 90%;"
@@ -40,49 +42,88 @@
 
 
 
-				<b:column span="8">
+				<b:column span="10">
+					<b:row>
+						<b:column span="1">
+							<p:outputLabel value="Id" />
+						</b:column>
 
-					<h4>OS - Abertas</h4>
-					
-					<ui:repeat value="#{newOsBean.listaChamado}" var="os">
-						<b:panel styleClass="panel-default-semBorda">
-							<b:panelGrid columns="4">
-								<p:outputLabel value="#{os.osId}"  />
-								<b:label text="#{os.statusFormatado}" severity="success"/>
-								<p:outputLabel value="#{os.tituloOs}"  />
-								<p:outputLabel value="#{os.dataOs}">
+						<b:column span="2">
+							<p:outputLabel value="Status" />
+						</b:column>
+
+						<b:column span="4">
+							<p:outputLabel value="Titulo" />
+						</b:column>
+
+						<b:column span="2">
+							<p:outputLabel value="Data" />
+						</b:column>
+						
+						<b:column span="2">
+							<p:outputLabel value="Ações" />
+						</b:column>
+					</b:row>
+					<hr/>
+				
+					<b:row>
+						<ui:repeat value="#{newOsBean.listaChamado}" var="os">
+
+							<b:column span="1">
+								<p:outputLabel style="font-size:100%;font-weight: normal;"
+									value="#{os.osId}" />
+							</b:column>
+
+							<b:column span="2">
+								<b:label style="font-size:85%;font-weight: normal;"
+									text="#{os.statusFormatado}" severity="#{os.corStatus}" />
+							</b:column>
+
+							<b:column span="4">
+								<p:outputLabel style="font-size:100%;font-weight: normal;"
+									value="#{os.tituloOs}" />
+							</b:column>
+
+							<b:column span="2">
+								<p:outputLabel style="font-size:100%;font-weight: normal;"
+									value="#{os.dataOs}">
 									<f:convertDateTime pattern="dd/MM/yyyy" />
-								</p:outputLabel>	
-							</b:panelGrid>
-						</b:panel>
-					</ui:repeat>
+								</p:outputLabel>
+							</b:column>
 
+							<b:column span="2">
+								<b:commandLink look="default" value="Abrir"
+									icon="open-file" style="font-size:80%;" />
+									
+							</b:column> <br/><br/>
+					
+						</ui:repeat>
+				
+					</b:row>
 
 
 				</b:column>
-				
 			</b:container>
-		</h:form>
 
-		<h:form>
-			<b:modal title="Novo Chamado" styleClass="modalPseudoClass" id="responsiveModal"
-				closable="false">
-			
-				<b:inputText label="Titulo:" labelStyle="width:80px;" value="#{newOsBean.titulo}"/>
-				<b:inputTextarea label="Descrição: "  value="#{newOsBean.descricao}" />
- 
-				<b:radiobutton value="#{newOsBean.tipo}">
-					<f:selectItem itemValue="1" itemLabel="Manutenção" />
-					<f:selectItem itemValue="2" itemLabel="Desenvolvimento" />
-				</b:radiobutton>
+		<h:form enctype="multipart/form-data">
+			<b:modal title="Novo Chamado" styleClass="modalPseudoClass"
+				id="responsiveModal" closable="false">
 
- 				<p:fileUpload label="Enviar Anexo" value="#{newOsBean.upload}" mode="simple" skinSimple="true"/>
- 				<br></br>
-	
+				<b:inputText label="Titulo:" labelStyle="width:80px;"
+					value="#{newOsBean.titulo}" />
+				<b:inputTextarea label="Descrição: " value="#{newOsBean.descricao}" />
+
+				<p:fileUpload label="Enviar Anexo" value="#{newOsBean.upload}"
+					mode="simple" skinSimple="true" />
+				<br></br>
+
 				<f:facet name="footer">
-					<div id="rodape" style="display: flex; float:right;">
+					<div id="rodape" style="display: flex; float: right;">
 						<b:button style="float:right;" value="Fechar" dismiss="modal" />
-						<b:commandLink look="success" ajax="false" value="Salvar" action="#{newOsBean.insereChamado}" style="float:right;"/>	
+						<b:commandLink look="success" ajax="false" value="Salvar"
+							action="#{newOsBean.insereChamado}" style="float:right;">
+						</b:commandLink>	
+							
 					</div>
 				</f:facet>
 

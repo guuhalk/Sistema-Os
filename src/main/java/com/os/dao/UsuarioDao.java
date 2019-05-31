@@ -120,6 +120,52 @@ public class UsuarioDao extends GenericDao<Usuario> {
 	
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> buscarUsuariosAnalistas(){
+		List<Usuario> lista = new ArrayList<>();
+		List<Object> listaObjeto = null;
+		EntityManager em = getEntityManager();
+		
+		try {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(" SELECT usu_id,usu_nome FROM usuario where prf_id = 3 ");
+			
+			Query query = em.createNativeQuery(sb.toString());
+		
+			
+			listaObjeto = query.getResultList();
+			
+			for (int i = 0; i < listaObjeto.size(); i++) {
+				Object[] result = (Object[]) listaObjeto.get(i);
+				
+				Usuario model = new Usuario();
+				
+				model.setUsuId((Integer)result[0]);
+				model.setUsuNome((String)result[1]);
+	
+				lista.add(model);
+				
+			} 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			em.close();
+		}
+
+		
+		return lista;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	@Test
 	public void criarTabelas() {
@@ -127,6 +173,7 @@ public class UsuarioDao extends GenericDao<Usuario> {
 		EntityManager em = getEntityManager();
 		em.close();
 	}
+	
 	
 	
 

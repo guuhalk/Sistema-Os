@@ -9,10 +9,10 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<h:form>
-			<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
-     		 		show-detail="true" show-summary="false" delay="2000" escape="true" /> 
-		
+		<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
+			show-detail="true" show-summary="false" delay="2000" escape="true" />
+
+		<h:form enctype="multipart/form-data">
 			<b:container>
 				<br></br>
 				<b:column span="10">
@@ -24,11 +24,11 @@
 				</b:column>
 
 				<b:column span="2">
-					<b:commandLink look="default" 
-								   value="Pesquisar Os"
-						           icon="glyphicon glyphicon-search"
-						           style=" padding: 3%; font-size: 90%;"
-						           action="#{analistaOsBean.redirecionarPaginasParaPesquisarOs}" />
+					<b:commandLink look="default" value="Pesquisar Os"
+						icon="glyphicon glyphicon-search"
+						style=" padding: 3%; font-size: 90%;"
+						action="#{analistaOsBean.redirecionarPaginasParaPesquisarOs}" />
+
 				</b:column>
 
 				<hr></hr>
@@ -36,55 +36,103 @@
 
 
 
-				<b:column span="6">
+				<b:column span="10">
+					<b:row>
+						<b:column span="1">
+							<p:outputLabel value="Id" />
+						</b:column>
 
-					<h4>OS - Abertas</h4>
+						<b:column span="4">
+							<p:outputLabel value="Titulo" />
+						</b:column>
 
-					<b:panel styleClass="panel-default-semBorda">
-						<b:listLinks>
-							<b:navLink header="Chamados PROVISORIO " />
-							<b:navLink header="Chamados PROVISORIO" />
-							<b:navLink header="Chamados PROVISORIO" />
-							<b:navLink header="Chamados PROVISORIO" />
-							<b:navLink header="Chamados PROVISORIO" />
-							<b:navLink header="Chamados PROVISORIO" />
-							<b:navLink header="Chamados PROVISORIO" />
-							
-							<ui:repeat var="os">
-								<b:navCommandLink />
-							</ui:repeat>
-							<b:messages />
-						</b:listLinks>
-					</b:panel>
+						<b:column span="2">
+							<p:outputLabel value="Data" />
+						</b:column>
 
+						<b:column span="2">
+							<p:outputLabel value="Ações" />
+						</b:column>
+					</b:row>
+					<hr />
+
+					<b:row>
+						<ui:repeat value="#{alocarOsBean.listaChamado}" var="os">
+
+							<b:column span="1">
+								<p:outputLabel style="font-size:100%;font-weight: normal;"
+									value="#{os.osId}" />
+							</b:column>
+
+
+							<b:column span="4">
+								<p:outputLabel style="font-size:100%;font-weight: normal;"
+									value="#{os.tituloOs}" />
+							</b:column>
+
+							<b:column span="2">
+								<p:outputLabel style="font-size:100%;font-weight: normal;"
+									value="#{os.dataOs}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+							</b:column>
+
+							<b:column span="2" >
+								
+								<b:commandLink  value="Alocar" look="default" icon="open-file"  ajax="true"
+									style="font-size:80%;" >
+		
+									<p:ajax listener="#{alocarOsBean.selecionaChamado(os)}" event="click" />
+									<div onclick="$('.modalPseudoClass').modal();tableWidgetVar.DataTable().responsive.recalc()" >	</div>
+									</b:commandLink>
+								
+							</b:column>
+							<br />
+							<br />
+
+						</ui:repeat>
+
+					</b:row>
 
 
 				</b:column>
 
+				<b:modal title="Alocar Chamado " styleClass="modalPseudoClass" closable="false">
+					<b:row>
+	
+					<b:column span="7">
+						<b:inputTextarea rows="12" label="Descrição: " value="#{alocarOsBean.chamadoSelecionado.descricaoOs}"  />
+					</b:column>
 
-				<b:column span="4">
-					<h4>Nova Solicitação</h4>
-					<hr></hr>
-					<h:panelGrid columns="1" cellpadding="1">
+					<b:column span="5">
+						<b:dateTimePicker show-time="false" label="Data Entrga: " />
+
+						<b:selectOneMenu value="#{selectOneMenuBean.type}" label="Responsavel:">
+							
+							<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+							<f:selectItems value="#{alocarOsBean.listaDeAnalistas}" var="usu"  
+										   itemLabel="#{usu.usuNome}" itemValue="#{usu.usuId}" />
+							<f:converter converterId="genericConverter" />
+						</b:selectOneMenu>
 						
-						<b:dateTimePicker show-time="false" label="Data Entrga: "/>
-						
-					    <b:selectOneMenu value="#{selectOneMenuBean.type}" required="true" label="Responsavel:">
-					      <f:selectItem itemLabel="" itemValue="" />
-					      <f:selectItem itemLabel="Gustavo" itemValue="4" />
-					    </b:selectOneMenu>
-						
-						<b:radiobutton value="#{alocarOsBean.radio}">
+ 						<p:outputLabel value="Tipo :" /> 
+						<b:radiobutton value="#{alocarOsBean.tipo}" >
 							<f:selectItem itemValue="1" itemLabel="Acesso" />
 							<f:selectItem itemValue="2" itemLabel="Manutenção" />
 							<f:selectItem itemValue="2" itemLabel="Desenvolvimento" />
 						</b:radiobutton>
+					</b:column>
+					</b:row>
+					<f:facet name="footer">
+						<div id="rodape" style="display: flex; float: right;">
+							<b:button style="float:right;" value="Fechar" dismiss="modal" />
+							<b:commandLink look="success" ajax="false" value="Salvar"
+								action="#{newOsBean.insereChamado}" style="float:right;">
+							</b:commandLink>
+						</div>
+					</f:facet>
 
-						<b:commandLink look="success" value="Salvar" />
-
-
-					</h:panelGrid>
-				</b:column>
+				</b:modal>
 
 			</b:container>
 		</h:form>

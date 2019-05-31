@@ -10,7 +10,7 @@ import javax.persistence.Query;
 import com.os.generico.GenericDao;
 import com.os.model.OsChamado;
 
-public class OsChamadoDao extends GenericDao<OsChamado> {
+public class NewOsDao extends GenericDao<OsChamado> {
 
 	
 	
@@ -60,17 +60,16 @@ public class OsChamadoDao extends GenericDao<OsChamado> {
 	
 
 	
-	public boolean insereChamado(Integer tipo, String titulo, String descricao, String usuario, String anexo, Integer idUsuario ) {
+	public boolean insereChamado(String titulo, String descricao, String usuario, String anexo, Integer idUsuario ) {
 		
 		EntityManager em = getEntityManager();
 		Integer os;
 		
 		try {
 			
-			String sql  = "insert into os_chamado values (null,1,now(),:tipo,:titulo,:usuario,null,:descricao)";
+			String sql  = "insert into os_chamado values (null,1,now(),null,:titulo,:usuario,null,:descricao,null,null)";
 			em.getTransaction().begin();
 			Query query = em.createNativeQuery(sql);
-			query.setParameter("tipo", tipo);
 			query.setParameter("titulo", titulo);
 			query.setParameter("usuario", usuario);
 			query.setParameter("descricao", descricao);
