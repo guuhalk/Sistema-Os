@@ -1,0 +1,175 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+
+	<ui:define name="header">
+	</ui:define>
+
+	<ui:define name="content">
+		<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
+			show-detail="true" show-summary="false" delay="2000" escape="true" />
+		<h:form>
+			<b:container>
+				<br></br>
+
+				<b:row>
+					<b:column span="10">
+
+						<h3>
+							Chamado - id:
+							<p:outputLabel value="#{interacaoOsBean.osSelecionada.osId}" />
+							-
+							<p:outputLabel value="#{interacaoOsBean.osSelecionada.tituloOs}" />
+						</h3>
+						<hr></hr>
+						<br></br>
+
+					</b:column>
+
+
+					<b:column span="2">
+						<b:commandLink look="default" value="Pesquisar Os"
+							icon="glyphicon glyphicon-search"
+							style=" padding: 3%; font-size: 90%;" />
+
+						<b:commandLink look="default" value="" icon="arrow-left"
+							style=" padding: 3%; font-size: 90%;"
+							action="#{interacaoOsBean.redirecionarPaginasOs}" />
+
+					</b:column>
+				</b:row>
+
+				<b:row>
+					<b:column span="7">
+						<b:panel title="Descrição do Chamado " collapsible="false">
+							<b:row style="margin-left:5px;">
+								<h:outputText value="Descricao: "
+									style=" margin-right: 2%; font-weight: 600;" />
+								<h:outputText
+									value="#{interacaoOsBean.osSelecionada.descricaoOs}" />
+
+								<br />
+
+							</b:row>
+
+							<b:row style="margin-left:5px;">
+								<hr />
+								<h:outputText value="Anexo:"
+									style=" margin-right: 2%; font-weight: 600;" />
+							</b:row>
+						</b:panel>
+
+						<p:repeat var="" value="">
+							<b:panel title="Interação  " collapsible="false">
+								<b:row style="margin-left:5px;">
+									<h:outputText value="Descricao: "
+										style=" margin-right: 2%; font-weight: 600;" />
+
+									<br />
+									<br />
+
+									<h:outputText value="Data:"
+										style="float:right; margin-right: 2%; font-weight: 600;" />
+									<h:outputText value="Usuario:"
+										style="float:right; margin-right: 2%; font-weight: 600;" />
+
+								</b:row>
+
+								<b:row style="margin-left:5px;">
+									<hr />
+									<h:outputText value="Anexo:"
+										style=" margin-right: 2%; font-weight: 600;" />
+								</b:row>
+							</b:panel>
+						</p:repeat>
+						<br />
+						<br />
+
+						<b:row>
+							<p:textEditor widgetVar="editor" value="#{interacaoOsBean.descricaoDaInteracao}"
+								height="200"
+								style="margin-bottom:10px; width: 96%; margin-left: 16px;"
+								placeholder="Digite a Interação">
+
+								<f:facet name="toolbar">
+									<span class="ql-formats">
+										<button class="ql-bold"></button>
+										<button class="ql-italic"></button>
+										<button class="ql-underline"></button>
+										<button class="ql-strike"></button>
+									</span>
+									<span class="ql-formats"> <select class="ql-font"></select>
+										<select class="ql-size"></select>
+									</span>
+								</f:facet>
+							</p:textEditor>
+
+							<b:selectOneMenu rendered="#{perfilUsuarioLogado == 3}"  value="#{interacaoOsBean.statusOs}" label="Status:" >
+								<f:selectItem itemLabel="(Please select)" itemValue="" />
+								<f:selectItem itemLabel="Fiat"  itemValue="2" />
+								<f:selectItem itemLabel="Honda" itemValue="3" />
+								<f:selectItem itemLabel="Opel"  itemValue="4" />
+							</b:selectOneMenu>
+
+
+						</b:row>
+
+					</b:column>
+
+					<b:column span="2" />
+					<b:column span="3">
+						<b:well>
+							<h4>
+								<b>Informações do Chamado</b>
+							</h4>
+							<hr />
+
+							<span><b>Responsavel: </b></span>
+							<h:outputText value="#{interacaoOsBean.osSelecionada.analistaOs}" />
+							<br />
+							<br />
+							<span><b>Status: </b></span>
+							<b:label style="font-size:85%;font-weight: normal;"
+								text="#{interacaoOsBean.osSelecionada.statusFormatado}"
+								severity="#{interacaoOsBean.osSelecionada.corStatus}" />
+							<br />
+							<br />
+							<span><b>Data Abertura : </b></span>
+							<h:outputText value="#{interacaoOsBean.osSelecionada.dataOs}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+
+							<br />
+							<br />
+							<span><b>Data Entrega: </b></span>
+							<h:outputText
+								value="#{interacaoOsBean.osSelecionada.dataPrevisaoOs}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+							<br />
+							<br />
+
+							<span><b>Tipo: </b></span>
+							<h:outputText
+								value="#{interacaoOsBean.osSelecionada.tipoFormatado}" />
+							<br />
+							<br />
+							<span><b>Usuario Abertura: </b></span>
+							<h:outputText
+								value="#{interacaoOsBean.osSelecionada.usuAberturaOs}" />
+							<br />
+
+
+
+
+						</b:well>
+					</b:column>
+				</b:row>
+			</b:container>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

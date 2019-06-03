@@ -33,7 +33,7 @@ public class IndexBean extends GenericBean {
 
 	public void redirecionarPaginasOs() {
 		
-		if(perfilUsuarioLogado == 1) {
+		if(perfilUsuarioLogado == 1 || perfilUsuarioLogado == 3) {
 			redirecionarPagina("os/os-analista.xhtml");
 		}else {
 			redirecionarPagina("os/os-usuario.xhtml");

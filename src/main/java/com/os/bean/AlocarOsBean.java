@@ -1,12 +1,11 @@
 package com.os.bean;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-import org.primefaces.PrimeFaces.Ajax;
 
 import com.os.dao.AlocaOsDao;
 import com.os.dao.UsuarioDao;
@@ -22,23 +21,66 @@ public class AlocarOsBean  extends GenericBean{
 	private List<OsChamado> listaChamado;
 	private List<Usuario> listaDeAnalistas;
 	private OsChamado chamadoSelecionado;
-	
+	private String responsavel;
+	private Date dataPrevisao;
 	
 	
 	@PostConstruct
 	public void init() {
-			
-		chamadoSelecionado = new OsChamado();
+		
+		chamadoSelecionado= new OsChamado();
 		listaChamado = new AlocaOsDao().buscarChamadosParaAlocar();
 		listaDeAnalistas = new UsuarioDao().buscarUsuariosAnalistas();
 		
 	}
+
 	
-	
-	
-	public void selecionaChamado(OsChamado os) {
- 		this.chamadoSelecionado = os;	
+	public void alocarChamado() {
+		
+		if(validaChamado()){
+			
+			if(new AlocaOsDao().alocarChamados(chamadoSelecionado.getOsId(), tipo, responsavel, dataPrevisao)) {
+				menssagemSucesso("Chamado Alocado com sucesso.");
+			}else {
+				menssagemErro("Erro ao alocar o chamado.");
+			}
+		}
+		
 	}
+	
+	
+
+	
+	@SuppressWarnings("unused")
+	public boolean validaChamado() {
+		
+		if(chamadoSelecionado.getOsId() != null) {		
+			if(tipo != null) {
+				if( responsavel != null || !responsavel.isEmpty() ) {
+					if(dataPrevisao != null) {
+						return true;
+					}else {
+						menssagemAviso("Favor selecionar uma data de entrega.");
+						return false;
+					}
+				}else {
+					menssagemAviso("Favor selecionar um responsavel.");
+					return false;
+				}
+
+			}else {
+				menssagemAviso("Favor selecionar o tipo do chamado.");
+				return false;
+			}
+
+		}else {
+			menssagemErro("Chamado Não Encontrado");
+			return false;
+		}	
+	}
+	
+	
+	
 	
 	
 	public void redirecionarPaginasParaPesquisarOs() {
@@ -47,17 +89,6 @@ public class AlocarOsBean  extends GenericBean{
 
 	
 	// GATTERS AND SETTERS
-	public Integer getTipo() {
-		return tipo;
-	}
-
-
-
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
-	}
-
-
 
 	public List<OsChamado> getListaChamado() {
 		return listaChamado;
@@ -84,6 +115,7 @@ public class AlocarOsBean  extends GenericBean{
 
 
 	public OsChamado getChamadoSelecionado() {
+		System.out.println(chamadoSelecionado.getTituloOs());;
 		return chamadoSelecionado;
 	}
 
@@ -94,6 +126,35 @@ public class AlocarOsBean  extends GenericBean{
 	}
 
 
-	
+	public Integer getTipo() {
+		return tipo;
+	}
+
+
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
+	}
+
+
+	public String getResponsavel() {
+		return responsavel;
+	}
+
+
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
+	}
+
+
+	public Date getDataPrevisao() {
+		return dataPrevisao;
+	}
+
+
+	public void setDataPrevisao(Date dataPrevisao) {
+		this.dataPrevisao = dataPrevisao;
+	}
+
+
 	
 }

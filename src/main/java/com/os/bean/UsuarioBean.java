@@ -35,6 +35,7 @@ public class UsuarioBean  extends GenericBean{
 	@PostConstruct
 	public void init() {
 		
+		usuarioSelecionado = new Usuario();
 		listaPerfil = new PerfilDao().buscarTodosPerfils();
 		listaUsuarios = new UsuarioDao().buscarTodosUsuarios();
 	
@@ -50,6 +51,24 @@ public class UsuarioBean  extends GenericBean{
 		}
 
 	}
+	
+	public void excluirUsuario() {
+		
+		if (usuarioSelecionado != null) {
+			
+			new UsuarioDao().delete(usuarioSelecionado);
+			
+		}else {
+			menssagemErro("Não foi possivel excluir o usuário.");
+		}
+		
+	}
+	
+	
+	public void selecionarUsuario(Usuario usu){
+		this.usuarioSelecionado = usu;
+	}
+	
 
 	public void limparCampos() {
 		

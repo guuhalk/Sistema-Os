@@ -77,15 +77,17 @@
 								</p:outputLabel>
 							</b:column>
 
-							<b:column span="2" >
-								
-								<b:commandLink  value="Alocar" look="default" icon="open-file"  ajax="true"
-									style="font-size:80%;" >
-		
-									<p:ajax listener="#{alocarOsBean.selecionaChamado(os)}" event="click" />
-									<div onclick="$('.modalPseudoClass').modal();tableWidgetVar.DataTable().responsive.recalc()" >	</div>
-									</b:commandLink>
-								
+							<b:column span="2">
+
+								<p:commandLink value="Alocar" style="font-size:80%;"
+									oncomplete="$('.modalPseudoClass').modal('show')"
+									update="@all" styleClass="btn btn-default">
+
+									<f:setPropertyActionListener value="#{os}"
+										target="#{alocarOsBean.chamadoSelecionado}" />
+
+								</p:commandLink>
+
 							</b:column>
 							<br />
 							<br />
@@ -97,44 +99,56 @@
 
 				</b:column>
 
-				<b:modal title="Alocar Chamado " styleClass="modalPseudoClass" closable="false">
-					<b:row>
-	
+			</b:container>
+		</h:form>
+
+		<h:form>
+			<b:modal id="modal"  title="Alocar Chamado " styleClass="modalPseudoClass"
+				closable="false" >
+				<b:row>
+
 					<b:column span="7">
-						<b:inputTextarea rows="12" label="Descrição: " value="#{alocarOsBean.chamadoSelecionado.descricaoOs}"  />
+						<b:inputTextarea rows="12" label="Descrição: "
+							value="#{alocarOsBean.chamadoSelecionado.descricaoOs}" disabled="true" />
 					</b:column>
 
 					<b:column span="5">
-						<b:dateTimePicker show-time="false" label="Data Entrga: " />
+						<b:dateTimePicker show-time="false" label="Data Entrga:" value="#{alocarOsBean.dataPrevisao}" />
 
-						<b:selectOneMenu value="#{selectOneMenuBean.type}" label="Responsavel:">
-							
+						<b:selectOneMenu value="#{alocarOsBean.responsavel}"
+							label="Responsavel:">
+
 							<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-							<f:selectItems value="#{alocarOsBean.listaDeAnalistas}" var="usu"  
-										   itemLabel="#{usu.usuNome}" itemValue="#{usu.usuId}" />
+							<f:selectItems value="#{alocarOsBean.listaDeAnalistas}" var="usu"
+								itemLabel="#{usu.usuNome}" itemValue="#{usu.usuId}" />
 							<f:converter converterId="genericConverter" />
 						</b:selectOneMenu>
+
+						<p:outputLabel value="Tipo :" />
 						
- 						<p:outputLabel value="Tipo :" /> 
-						<b:radiobutton value="#{alocarOsBean.tipo}" >
+						<b:radiobutton value="#{alocarOsBean.tipo}">
 							<f:selectItem itemValue="1" itemLabel="Acesso" />
 							<f:selectItem itemValue="2" itemLabel="Manutenção" />
-							<f:selectItem itemValue="2" itemLabel="Desenvolvimento" />
+							<f:selectItem itemValue="3" itemLabel="Criação" />
 						</b:radiobutton>
 					</b:column>
-					</b:row>
-					<f:facet name="footer">
-						<div id="rodape" style="display: flex; float: right;">
-							<b:button style="float:right;" value="Fechar" dismiss="modal" />
-							<b:commandLink look="success" ajax="false" value="Salvar"
-								action="#{newOsBean.insereChamado}" style="float:right;">
-							</b:commandLink>
-						</div>
-					</f:facet>
+				</b:row>
+				<f:facet name="footer">
+					<div id="rodape" style="display: flex; float: right;">
+						<b:commandLink style="float:right;" value="Fechar"
+						  onclick="$('.modalPseudoClass').modal('hide')"
+						  styleClass="btn btn-default"
+						  update="@form"
+						 />
+						
+						<p:commandLink look="success"  value="Salvar"  style="float:right;" styleClass="btn btn-success" action="#{alocarOsBean.alocarChamado}"
+						update="@all">
+							
+						</p:commandLink>
+					</div>
+				</f:facet>
 
-				</b:modal>
-
-			</b:container>
+			</b:modal>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -2,102 +2,159 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
-	
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+
 	<ui:define name="header">
 	</ui:define>
 	<ui:define name="content">
-		<b:container>
-			<h:form>
+		<h:form>
+			<b:container>
+
 				<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
-     		 		show-detail="true" show-summary="false" delay="2000" escape="true" /> 
-     		 		
-			<!-- CABEÇALHO -->
-			<b:row >
-				<b:column>
-					<h3>Usuario</h3>
-					<b:commandLink action="#{indexBean.redirecionarParaIndex}" 
-						style="float:right;"> <b:icon value="glyphicon glyphicon-arrow-left" style="top: -37px !important;
-						font-size: 112%; color: #333"  /> </b:commandLink>
-					<hr></hr>
-					<br></br>
-					<br></br>
+					show-detail="true" show-summary="false" delay="2000" escape="true" />
+
+				<!-- CABEÇALHO -->
+				<b:row>
+					<b:column>
+						<h3>Usuario</h3>
+						<b:commandLink action="#{indexBean.redirecionarParaIndex}"
+							style="float:right;">
+							<b:icon value="glyphicon glyphicon-arrow-left"
+								style="top: -37px !important;
+						font-size: 112%; color: #333" />
+						</b:commandLink>
+						<hr></hr>
+						<br></br>
+						<br></br>
+
+					</b:column>
+
+				</b:row>
+
+				<!-- CONTEUDO -->
+				<b:row>
+
+					<b:button value="Novo" look="success"
+						icon="glyphicon glyphicon-plus"
+						onclick="$('.responsiveModalPseudoClass').modal();tableWidgetVar.DataTable().responsive.recalc();"
+						style="margin-left:2%;"/>
+
+					<b:dataTable info="false" responsive="true"
+						value="#{usuarioBean.listaUsuarios}" var="usu" border="false"
+						paginated="false">
+						<b:dataTableColumn label="Nome" value="#{usu.usuNome}" />
+						<b:dataTableColumn label="Login" value="#{usu.usuLogin}" />
+						<b:dataTableColumn label="Email " value="#{usu.usuEmail}" />
+						<b:dataTableColumn label="Staus" value="#{usu.status}" />
+						<b:dataTableColumn label="Açoes" style="display: flex;">
+
+							<div style="display: flex; width: 50%;">
+								<p:commandLink styleClass="btn btn-primary" value="Editar"
+								oncomplete="$('.responsiveModalPseudoClass1').modal()" update="@all">
+
+									<f:setPropertyActionListener value="#{usu}"
+										target="#{usuarioBean.usuarioSelecionado}" />
+								</p:commandLink>
+
+								<p:commandLink styleClass="btn btn-danger" value="Deletar"
+									style=" margin-top: 0px; margin-left: 10px;" >
 				
-				</b:column>
+									<f:setPropertyActionListener value="#{usu}"
+										target="#{usuarioBean.usuarioSelecionado}" />
+									
+									<p:confirm header="Confirmação" message="Deseja Excluir Esse Usuário?" />
 
-			</b:row>
-			
-			<!-- CONTEUDO -->
-			<b:row>
-			 
-			 <b:button value="Novo" look="success" icon="glyphicon glyphicon-plus"
-              onclick="$('.responsiveModalPseudoClass').modal();tableWidgetVar.DataTable().responsive.recalc();"/>
-			 
-		
-			
-			
-				<b:dataTable info="false" responsive="true" value="#{usuarioBean.listaUsuarios}" var="usu" border="false" paginated="false" >
-					<b:dataTableColumn label="Nome"   value= "#{usu.usuNome}" />
-					<b:dataTableColumn label="Login"  value= "#{usu.usuLogin}" />
-					<b:dataTableColumn label="Email " value= "#{usu.usuEmail}" />
-					<b:dataTableColumn label="Staus"  value= "#{usu.status}" width="10%"/>
-					<b:dataTableColumn label="Açoes"> 
-						<b:commandLink styleClass="btn-block-table" look="primary" icon="glyphicon glyphicon-pencil"  
-							value="Editar" style=" display: inline-block; width: 40%;">
-							<f:setPropertyActionListener value="#{usu}" target="#{usuarioBean.usuarioSelecionado}" />
-						</b:commandLink>
-		
-						<b:commandLink  look="danger" icon="glyphicon glyphicon-remove" 
-							value="Deletar" style=" display: inline-block; width: 40%; margin-top: 0%; margin-left: 2%;">  
-							<f:setPropertyActionListener value="#{usu}" target="#{usuarioBean.usuarioSelecionado}" />
-							 <p:confirm header="Confirmation" message="Are you sure?"  />
-						</b:commandLink>
-					
-					
-					
-					</b:dataTableColumn>
-					
-				</b:dataTable>
+								</p:commandLink>
+							</div>
 
-				<b:modal title="Cadastro De Usuario" styleClass="responsiveModalPseudoClass" id="responsiveModal" closable="false">
-					<h:form>
-					<b:row>
+
+						</b:dataTableColumn>
+
+					</b:dataTable>
+				</b:row>
+			</b:container>
+		
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
+        	<p:commandButton value="Sim" styleClass=" btn btn-default " action="#{usuarioBean.excluirUsuario()}"/> 
+       		<p:commandButton value="Não"  styleClass=" btn btn-default" oncomplete="$('.responsiveModalPseudoClass1').modal('hide')" update="@all"/>
+    	</p:confirmDialog>
+		
+		
+		
+		</h:form>
+
+		<h:form>
+			<b:modal title="Cadastro De Usuario"
+				styleClass="responsiveModalPseudoClass" id="responsiveModal"
+				closable="false">
+
+				<b:row>
 					<b:column col-md="6">
-					
-						 <b:inputText label="Nome:" 	value="#{usuarioBean.nome}" />
-						 <b:inputText label="Usuario:"  value="#{usuarioBean.login}" />
-						 <b:selectOneMenu  label="Perfil" value="#{usuarioBean.perfil}"   >
-						      <f:converter converterId="genericConverter" />
-						     <f:selectItems itemLabel="#{per.prfDescricao}" 
-						    				itemValue="#{per.prfId}" 
-						    				value="#{usuarioBean.listaPerfil}" 
-						    				var="per"/> </b:selectOneMenu>
-			
+
+						<b:inputText label="Nome:" value="#{usuarioBean.nome}" />
+						<b:inputText label="Usuario:" value="#{usuarioBean.login}" />
+						<b:selectOneMenu label="Perfil" value="#{usuarioBean.perfil}">
+							<f:converter converterId="genericConverter" />
+							<f:selectItems itemLabel="#{per.prfDescricao}"
+								itemValue="#{per.prfId}" value="#{usuarioBean.listaPerfil}"
+								var="per" />
+						</b:selectOneMenu>
+
 					</b:column>
 					<b:column col-md="6">
-					
-						 <b:inputText label="Cpf:"      value="#{usuarioBean.cpf}" />
-						 <b:inputText label="Senha:"    type="password" value="#{usuarioBean.senha}" />
-    					 <b:inputText label="Email:"      value="#{usuarioBean.email}" />
-    					 <b:selectBooleanCheckbox caption="Ativo"  />
-    					
-    						<b:commandButton style="float:right; margin-left:3%;" value="Salvar" look="success" actionListener="#{usuarioBean.cadastrarUsuario()}"/>
-						    <b:button style="float:right;" value="Fechar" dismiss="modal" />
-							
-    					</b:column>
-    				</b:row>
-    				    	
 
-			
-					</h:form>			
-					</b:modal>
-			
+						<b:inputText label="Cpf:" value="#{usuarioBean.cpf}" />
+						<b:inputText label="Senha:" type="password"
+							value="#{usuarioBean.senha}" />
+						<b:inputText label="Email:" value="#{usuarioBean.email}" />
+						<b:selectBooleanCheckbox caption="Ativo" />
+
+						<b:commandButton style="float:right; margin-left:3%;"
+							value="Salvar" look="success"
+							actionListener="#{usuarioBean.cadastrarUsuario()}" />
+						<b:button style="float:right;" value="Fechar" dismiss="modal" />
+
+					</b:column>
 				</b:row>
-				
 
-				
-			</h:form>
-		</b:container>
+			</b:modal>
+			
+			<b:modal title="Edita Usuário"
+				styleClass="responsiveModalPseudoClass1" id="responsiveModal1"
+				closable="false">
+
+				<b:row>
+					<b:column col-md="6">
+
+						<b:inputText label="Nome:" value="#{usuarioBean.usuarioSelecionado.usuNome}" />
+						<b:inputText label="Usuario:" value="#{usuarioBean.usuarioSelecionado.usuLogin}" />
+						<b:selectOneMenu label="Perfil" value="#{usuarioBean.perfil}">
+							<f:converter converterId="genericConverter" />
+							<f:selectItems itemLabel="#{per.prfDescricao}"
+								itemValue="#{per.prfId}" value="#{usuarioBean.listaPerfil}"
+								var="per" />
+						</b:selectOneMenu>
+
+					</b:column>
+					<b:column col-md="6">
+
+						<b:inputText label="Cpf:" value="#{usuarioBean.usuarioSelecionado.usuCpf}" />
+						<b:inputText label="Senha:" type="password"
+							value="#{usuarioBean.usuarioSelecionado.usuSenha}" />
+						<b:inputText label="Email:" value="#{usuarioBean.usuarioSelecionado.usuEmail}" />
+						<b:selectBooleanCheckbox caption="Ativo" />
+
+						<b:commandButton style="float:right; margin-left:3%;"
+							value="Salvar" look="success"
+							actionListener="#{usuarioBean.cadastrarUsuario()}" />
+						<b:button style="float:right;" value="Fechar" dismiss="modal" />
+
+					</b:column>
+				</b:row>
+
+			</b:modal>
+
+		</h:form>
 	</ui:define>
 </ui:composition>

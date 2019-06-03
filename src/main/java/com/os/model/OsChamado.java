@@ -17,9 +17,10 @@ public class OsChamado {
 	private Date dataFechamento;
 	
 	
-	private String statusFormatado; 
+	private String statusFormatado;
+	private String tipoFormatado; 
 	private String corStatus;
-	
+	private Integer quantidadeDeChamadosParaAlocar;
 		
 	// GATTERS AND SETTERS 
 	public Integer getOsId() {
@@ -143,6 +144,32 @@ public class OsChamado {
 	}
 	public void setDataFechamento(Date dataFechamento) {
 		this.dataFechamento = dataFechamento;
+	}
+	public Integer getQuantidadeDeChamadosParaAlocar() {
+		return quantidadeDeChamadosParaAlocar;
+	}
+	public void setQuantidadeDeChamadosParaAlocar(Integer quantidadeDeChamadosParaAlocar) {
+		this.quantidadeDeChamadosParaAlocar = quantidadeDeChamadosParaAlocar;
+	}
+	public String getTipoFormatado() {
+		
+		if(tipoOs == 1) {
+			this.tipoFormatado = "Acesso";
+		}
+		
+		if(tipoOs == 2) {
+			this.tipoFormatado = "Manutenção";
+		}		
+		
+		if(tipoOs == 3) {
+			this.tipoFormatado = "Criação";
+		}
+		
+		
+		return tipoFormatado;
+	}
+	public void setTipoFormatado(String tipoFormatado) {
+		this.tipoFormatado = tipoFormatado;
 	}
 
 }

@@ -97,15 +97,9 @@ public class NewOsDao extends GenericDao<OsChamado> {
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback();
+		}finally {
+			em.close();
 		}
-	
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		return true;

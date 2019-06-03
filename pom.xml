@@ -48,9 +48,9 @@
 			<!-- PRIMEFACES -->
 			
 			<dependency>
-				<groupId>org.primefaces</groupId>
-				<artifactId>primefaces</artifactId>
-				<version>6.2</version>
+			    <groupId>org.primefaces</groupId>
+			    <artifactId>primefaces</artifactId>
+			    <version>7.0</version>
 			</dependency>
 		
 		
