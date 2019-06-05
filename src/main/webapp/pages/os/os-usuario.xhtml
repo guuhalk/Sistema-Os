@@ -11,12 +11,12 @@
 	<ui:define name="content">
 			<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
 				show-detail="true" show-summary="false" delay="2000" escape="true" />
-
-			<b:container id="teste">
+		<h:form>
+			<b:container auto-update="true" >
 				<br></br>
 
 
-				<b:column span="10">
+				<b:column span="10" >
 
 					<h3>Chamados - Os</h3>
 					<hr></hr>
@@ -104,8 +104,9 @@
 
 				</b:column>
 			</b:container>
-
-		<h:form enctype="multipart/form-data">
+		</h:form>
+		
+		<h:form enctype="multipart/form-data" id="formModal">
 			<b:modal title="Novo Chamado" styleClass="modalPseudoClass"
 				id="responsiveModal" closable="false">
 
@@ -120,11 +121,11 @@
 
 				<f:facet name="footer">
 					<div id="rodape" style="display: flex; float: right;">
+						
 						<b:button style="float:right;" value="Fechar" dismiss="modal" />
-						<b:commandLink look="success" ajax="false" value="Salvar"
-							action="#{newOsBean.insereChamado}" style="float:right;">
-						</b:commandLink>	
-							
+
+						<b:commandLink look="success"  value="Salvar" action="#{newOsBean.insereChamado}" style="float:right;" />
+	
 					</div>
 				</f:facet>
 

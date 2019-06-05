@@ -48,7 +48,8 @@ public class NewOsBean extends GenericBean {
 		if(validaCampos()) {
 			
 			if(new NewOsDao().insereChamado(titulo, descricao, nomeUsuarioLogado, fileBlob,idUsuarioLogado)) {
-				menssagemSucesso("Chamado cadastrado com sucesso!");
+				redirecionarPagina("os-usuario.xhtml");
+				
 			}else {
 				menssagemErro("Erro ao cadastrar o chamado");
 			}
@@ -95,8 +96,8 @@ public class NewOsBean extends GenericBean {
 			}
 		}
 	}
-			
-						
+		
+
 
 	
 	

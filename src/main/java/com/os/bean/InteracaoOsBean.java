@@ -1,9 +1,12 @@
 package com.os.bean;
 
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import com.os.generico.GenericBean;
+import com.os.model.Interacao;
 import com.os.model.OsChamado;
 
 
@@ -18,6 +21,7 @@ public class InteracaoOsBean extends GenericBean {
 	private String descricaoDaInteracao; 
 	private Integer perfilUsuarioLogado;
 	private Integer statusOs;
+	private List<Interacao> listaDeInteracao;
 	
 	
 	
@@ -28,9 +32,10 @@ public class InteracaoOsBean extends GenericBean {
 		idUsuarioLogado = buscaUsuarioSessao().getUsuId();
 		nomeUsuarioLogado = buscaUsuarioSessao().getUsuNome();
 		perfilUsuarioLogado = buscaUsuarioSessao().getPrfId().getPrfId();
-		
+			
 	}
-	
+
+
 
 	public void redirecionarPaginasOs() {
 		
@@ -88,6 +93,24 @@ public class InteracaoOsBean extends GenericBean {
 
 	public void setStatusOs(Integer statusOs) {
 		this.statusOs = statusOs;
+	}
+
+
+
+
+
+
+	public List<Interacao> getListaDeInteracao() {
+		return listaDeInteracao;
+	}
+
+
+
+
+
+
+	public void setListaDeInteracao(List<Interacao> listaDeInteracao) {
+		this.listaDeInteracao = listaDeInteracao;
 	}
 
 }

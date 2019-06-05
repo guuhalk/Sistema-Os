@@ -40,7 +40,8 @@ public class AlocarOsBean  extends GenericBean{
 		if(validaChamado()){
 			
 			if(new AlocaOsDao().alocarChamados(chamadoSelecionado.getOsId(), tipo, responsavel, dataPrevisao)) {
-				menssagemSucesso("Chamado Alocado com sucesso.");
+				redirecionarPagina("os-alocar.xhtml");
+			
 			}else {
 				menssagemErro("Erro ao alocar o chamado.");
 			}
@@ -80,7 +81,9 @@ public class AlocarOsBean  extends GenericBean{
 	}
 	
 	
-	
+	public void selecionaChamado(OsChamado os) {
+		this.chamadoSelecionado = os;	
+	}
 	
 	
 	public void redirecionarPaginasParaPesquisarOs() {

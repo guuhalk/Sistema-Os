@@ -12,7 +12,7 @@
 		<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
 			show-detail="true" show-summary="false" delay="2000" escape="true" />
 
-		<h:form enctype="multipart/form-data">
+		<h:form enctype="multipart/form-data" id="formPrincipal">
 			<b:container>
 				<br></br>
 				<b:column span="10">
@@ -37,7 +37,7 @@
 
 
 				<b:column span="10">
-					<b:row>
+					<b:row rendered="#{alocarOsBean.listaChamado.size() > 0}">
 						<b:column span="1">
 							<p:outputLabel value="Id" />
 						</b:column>
@@ -80,11 +80,11 @@
 							<b:column span="2">
 
 								<p:commandLink value="Alocar" style="font-size:80%;"
-									oncomplete="$('.modalPseudoClass').modal('show')"
-									update="@all" styleClass="btn btn-default">
+									onclick="$('.modalPseudoClass').modal('show')"
+									styleClass="btn btn-default"
+									action="#{alocarOsBean.selecionaChamado(os)}">
 
-									<f:setPropertyActionListener value="#{os}"
-										target="#{alocarOsBean.chamadoSelecionado}" />
+									<f:ajax execute="@this" render=":formModal" />
 
 								</p:commandLink>
 
@@ -102,18 +102,21 @@
 			</b:container>
 		</h:form>
 
-		<h:form>
-			<b:modal id="modal"  title="Alocar Chamado " styleClass="modalPseudoClass"
-				closable="false" >
+		<b:modal id="modal" title="Alocar Chamado "
+			styleClass="modalPseudoClass" closable="false">
+			<h:form id="formModal">
+
 				<b:row>
 
 					<b:column span="7">
 						<b:inputTextarea rows="12" label="Descrição: "
-							value="#{alocarOsBean.chamadoSelecionado.descricaoOs}" disabled="true" />
+							value="#{alocarOsBean.chamadoSelecionado.descricaoOs}"
+							disabled="true" />
 					</b:column>
 
 					<b:column span="5">
-						<b:dateTimePicker show-time="false" label="Data Entrga:" value="#{alocarOsBean.dataPrevisao}" />
+						<b:dateTimePicker show-time="false" label="Data Entrga:"
+							value="#{alocarOsBean.dataPrevisao}" />
 
 						<b:selectOneMenu value="#{alocarOsBean.responsavel}"
 							label="Responsavel:">
@@ -125,7 +128,7 @@
 						</b:selectOneMenu>
 
 						<p:outputLabel value="Tipo :" />
-						
+
 						<b:radiobutton value="#{alocarOsBean.tipo}">
 							<f:selectItem itemValue="1" itemLabel="Acesso" />
 							<f:selectItem itemValue="2" itemLabel="Manutenção" />
@@ -133,22 +136,22 @@
 						</b:radiobutton>
 					</b:column>
 				</b:row>
-				<f:facet name="footer">
+				<b:row style="padding-top: 4%;">
 					<div id="rodape" style="display: flex; float: right;">
-						<b:commandLink style="float:right;" value="Fechar"
-						  onclick="$('.modalPseudoClass').modal('hide')"
-						  styleClass="btn btn-default"
-						  update="@form"
-						 />
-						
-						<p:commandLink look="success"  value="Salvar"  style="float:right;" styleClass="btn btn-success" action="#{alocarOsBean.alocarChamado}"
-						update="@all">
-							
+						<p:commandLink style="float:right;" value="Fechar"
+							onclick="$('.modalPseudoClass').modal('hide')"
+							styleClass="btn btn-default" update="@all" />
+
+						<p:commandLink look="success" value="Salvar" style="float:right; margin-left:5px; margin-right:10px;"
+							styleClass="btn btn-success"
+							action="#{alocarOsBean.alocarChamado}" >
+	
 						</p:commandLink>
 					</div>
-				</f:facet>
+				</b:row>
 
-			</b:modal>
-		</h:form>
+			</h:form>
+		</b:modal>
+
 	</ui:define>
 </ui:composition>
