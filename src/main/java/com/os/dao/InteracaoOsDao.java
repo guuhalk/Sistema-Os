@@ -68,8 +68,24 @@ public class InteracaoOsDao extends GenericDao<OsChamado> {
 		try {
 			
 			StringBuilder sb = new StringBuilder();
-			sb.append(" SELECT in_id, os_id, usu_id, in_data, in_descricao, in_anexo ");
-			sb.append(" from os_interacao where os_id = :idOs ");
+			
+			sb.append(" SELECT ");
+			sb.append(" os_interacao.in_id ");
+			sb.append(" ,os_interacao.os_id ");
+			sb.append(" ,os_interacao.usu_id ");
+			sb.append(" ,os_interacao.in_data ");
+			sb.append(" ,os_interacao.in_descricao ");
+			sb.append(" ,os_interacao.in_anexo ");
+			sb.append(" ,usuario.usu_nome ");
+
+			sb.append(" FROM ");
+			sb.append(" os_interacao ");
+			sb.append(" JOIN usuario ON (usuario.usu_id = os_interacao.usu_id) ");
+
+			sb.append(" WHERE ");
+			sb.append(" os_id = :idOs ");
+			sb.append(" and os_interacao.in_descricao <> ''  ");
+			sb.append(" ORDER BY in_data; ");
 			
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter("idOs", idOs);
@@ -86,7 +102,7 @@ public class InteracaoOsDao extends GenericDao<OsChamado> {
 				model.setInData((Date)        result[3]);
 				model.setInDescricao((String) result[4]);
 				model.setAnexo((String)       result[5]);
-				
+				model.setNomeUsuario((String) result[6]);
 				
 				lista.add(model);
 			

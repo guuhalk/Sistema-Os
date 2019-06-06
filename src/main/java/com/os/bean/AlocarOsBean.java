@@ -38,9 +38,21 @@ public class AlocarOsBean  extends GenericBean{
 	public void alocarChamado() {
 		
 		if(validaChamado()){
+		
+			String analista = new AlocaOsDao().bucarAnalistaParaAlocar(responsavel);
 			
-			if(new AlocaOsDao().alocarChamados(chamadoSelecionado.getOsId(), tipo, responsavel, dataPrevisao)) {
-				redirecionarPagina("os-alocar.xhtml");
+			if(analista != null ) {
+				
+				if(new AlocaOsDao().alocarChamados(chamadoSelecionado.getOsId(), tipo, analista, dataPrevisao)) {
+					redirecionarPagina("os-alocar.xhtml");
+				
+			}else {
+				
+				menssagemErro("Responsavel nulo");
+			}
+			
+			
+			
 			
 			}else {
 				menssagemErro("Erro ao alocar o chamado.");

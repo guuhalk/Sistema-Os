@@ -66,6 +66,32 @@ public class AlocaOsDao extends GenericDao<OsChamado>{
 	}
 	
 	
+
+	public String bucarAnalistaParaAlocar(String perfil){
+		
+		EntityManager em = getEntityManager();
+		
+		try {
+			
+			String sql = "select usu_nome from usuario where prf_id = :perfil";
+			
+			Query query = em.createNativeQuery(sql);
+			query.setParameter("perfil", perfil);
+			
+			 return  (String) query.getSingleResult();
+		
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		
+		}finally {
+			em.close();
+		}
+
+	}
+	
+	
 	
 	public boolean alocarChamados(Integer id, Integer tipo, String responsavel, Date data) {
 		

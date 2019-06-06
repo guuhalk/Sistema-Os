@@ -24,7 +24,7 @@ public class AnalistaOsBean extends GenericBean{
 	private List<OsChamado> listaChamadoTeste;
 	private List<OsChamado> listaChamadoAguardandoUsuario;
 	private List<OsChamado> listaChamadoAguardandoTerceiro;
-	private Integer usuarioLogado;
+	private String usuarioLogado;
 	
 	
 	
@@ -34,7 +34,7 @@ public class AnalistaOsBean extends GenericBean{
 	public void init() {
 		
 		
-		usuarioLogado = buscaUsuarioSessao().getUsuId();
+		usuarioLogado = buscaUsuarioSessao().getUsuNome();
 		quantidadeChamadosParaAlocar = new AlocaOsDao().buscarQuantidadeDeChamadosParaAlocar();
 		listaChamadoDesenvolvimento = new AnalistaOsDao().buscarChamadosEmDesenvolvimento(usuarioLogado);
 		listaChamadoTeste = new AnalistaOsDao().buscarChamadosEmTeste(usuarioLogado);
@@ -44,11 +44,6 @@ public class AnalistaOsBean extends GenericBean{
 	}
 	
 
-	
-	
-	
-	
-	
 	
 	public void redirecionarPaginasParaAlocar() {
 		redirecionarPagina("os-alocar.xhtml"); 
@@ -108,7 +103,7 @@ public class AnalistaOsBean extends GenericBean{
 
 
 
-	public Integer getUsuarioLogado() {
+	public String getUsuarioLogado() {
 		return usuarioLogado;
 	}
 
@@ -119,7 +114,7 @@ public class AnalistaOsBean extends GenericBean{
 
 
 
-	public void setUsuarioLogado(Integer usuarioLogado) {
+	public void setUsuarioLogado(String usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
 	}
 

@@ -117,7 +117,7 @@ public class OsChamado {
 		}
 		
 		if(statusOs == 4) {
-			this.corStatus = "Warning";
+			this.corStatus = "warning";
 		}
 		
 		if(statusOs == 5) {

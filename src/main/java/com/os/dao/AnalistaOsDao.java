@@ -14,7 +14,7 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 
 	
 	@SuppressWarnings("unchecked")
-	public List<OsChamado> buscarChamadosEmDesenvolvimento(Integer idUsu) {
+	public List<OsChamado> buscarChamadosEmDesenvolvimento(String analista) {
 		List<OsChamado> lista = new ArrayList<>();
 		List<Object> listaObjeto = null;
 		EntityManager em = getEntityManager();
@@ -24,11 +24,11 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(" select os_id,os_status,os_data,os_tipo,os_titulo,os_usuabertura,os_analista,os_descricao,os_dataprevisao ");
-			sb.append(" from os_chamado where os_status = 1 and os_analista = :idUsu ");
+			sb.append(" from os_chamado where os_status = 1 and os_analista = :analista ");
 
 			
 			Query query = em.createNativeQuery(sb.toString());
-			query.setParameter("idUsu", idUsu);
+			query.setParameter("analista", analista);
 			listaObjeto = query.getResultList();
 			
 			for (int i = 0; i < listaObjeto.size(); i++) {
@@ -63,7 +63,7 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<OsChamado> buscarChamadosAguardandoUsuarios(Integer idUsu) {
+	public List<OsChamado> buscarChamadosAguardandoUsuarios(String analista) {
 		List<OsChamado> lista = new ArrayList<>();
 		List<Object> listaObjeto = null;
 		EntityManager em = getEntityManager();
@@ -73,10 +73,10 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(" select os_id,os_status,os_data,os_tipo,os_titulo,os_usuabertura,os_analista,os_descricao,os_dataprevisao ");
-			sb.append(" from os_chamado where os_status = 2 and os_analista = :idUsu ");
+			sb.append(" from os_chamado where os_status = 2 and os_analista = :analista ");
 			
 			Query query = em.createNativeQuery(sb.toString());
-			query.setParameter("idUsu", idUsu);
+			query.setParameter("analista", analista);
 			listaObjeto = query.getResultList();
 			
 			for (int i = 0; i < listaObjeto.size(); i++) {
@@ -109,7 +109,7 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 	}
 	
 	@SuppressWarnings("unchecked")	
-	public List<OsChamado> buscarChamadosAguardandoTerceiros(Integer idUsu) {
+	public List<OsChamado> buscarChamadosAguardandoTerceiros(String analista) {
 		List<OsChamado> lista = new ArrayList<>();
 		
 		List<Object> listaObjeto = null;
@@ -120,10 +120,10 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(" select os_id,os_status,os_data,os_tipo,os_titulo,os_usuabertura,os_analista,os_descricao,os_dataprevisao ");
-			sb.append(" from os_chamado where os_status = 3 and os_analista = :idUsu ");
+			sb.append(" from os_chamado where os_status = 3 and os_analista = :analista ");
 			
 			Query query = em.createNativeQuery(sb.toString());
-			query.setParameter("idUsu", idUsu);
+			query.setParameter("analista", analista);
 			
 			listaObjeto = query.getResultList();
 			
@@ -158,7 +158,7 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<OsChamado> buscarChamadosEmTeste(Integer idUsu) {
+	public List<OsChamado> buscarChamadosEmTeste(String analista) {
 		List<OsChamado> lista = new ArrayList<>();
 		List<Object> listaObjeto = null;
 		EntityManager em = getEntityManager();
@@ -168,10 +168,10 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(" select os_id,os_status,os_data,os_tipo,os_titulo,os_usuabertura,os_analista,os_descricao,os_dataprevisao ");
-			sb.append(" from os_chamado where os_status = 4 and os_analista = :idUsu ");
+			sb.append(" from os_chamado where os_status = 4 and os_analista = :analista ");
 			
 			Query query = em.createNativeQuery(sb.toString());
-			query.setParameter("idUsu", idUsu);
+			query.setParameter("analista", analista);
 			listaObjeto = query.getResultList();
 			
 			for (int i = 0; i < listaObjeto.size(); i++) {

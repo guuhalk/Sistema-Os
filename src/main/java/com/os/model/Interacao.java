@@ -11,6 +11,7 @@ public class Interacao {
 	private Date inData;
 	private String inDescricao;
 	private String anexo;
+	private String nomeUsuario;
 	
 	
 	// GATTERS AND SETTERS
@@ -49,6 +50,12 @@ public class Interacao {
 	}
 	public void setAnexo(String anexo) {
 		this.anexo = anexo;
+	}
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
 }

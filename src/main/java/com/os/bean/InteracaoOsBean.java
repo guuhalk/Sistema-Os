@@ -5,6 +5,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import com.os.dao.InteracaoOsDao;
 import com.os.generico.GenericBean;
 import com.os.model.Interacao;
 import com.os.model.OsChamado;
@@ -22,6 +23,9 @@ public class InteracaoOsBean extends GenericBean {
 	private Integer perfilUsuarioLogado;
 	private Integer statusOs;
 	private List<Interacao> listaDeInteracao;
+	private boolean rowAnalista;
+	private boolean rowUsuario;
+	private boolean rowUsuarioTeste;
 	
 	
 	
@@ -32,10 +36,38 @@ public class InteracaoOsBean extends GenericBean {
 		idUsuarioLogado = buscaUsuarioSessao().getUsuId();
 		nomeUsuarioLogado = buscaUsuarioSessao().getUsuNome();
 		perfilUsuarioLogado = buscaUsuarioSessao().getPrfId().getPrfId();
+		listaDeInteracao = new InteracaoOsDao().buscarInteracaoDoChamado(os.getOsId());
+		validaRowDeRespostaChamado();
 			
 	}
 
+	
+	public void gravarInteracao() {
+		
+		
+	}
+	
 
+	public void validaRowDeRespostaChamado() {
+		if(perfilUsuarioLogado != 1 && perfilUsuarioLogado != 3) {	
+			if(osSelecionada.getStatusOs() == 4) {
+				this.rowAnalista = false;
+				this.rowUsuario = false;
+				this.rowUsuarioTeste = true;	
+			
+			}else {
+				this.rowAnalista = false;
+				this.rowUsuario = true;
+				this.rowUsuarioTeste = false;
+			}
+					
+		}else {
+			
+			this.rowAnalista = true;
+			this.rowUsuario = false;
+			this.rowUsuarioTeste = false;
+		}
+	}
 
 	public void redirecionarPaginasOs() {
 		
@@ -111,6 +143,36 @@ public class InteracaoOsBean extends GenericBean {
 
 	public void setListaDeInteracao(List<Interacao> listaDeInteracao) {
 		this.listaDeInteracao = listaDeInteracao;
+	}
+
+
+	public boolean getRowAnalista() {
+		return rowAnalista;
+	}
+
+
+	public void setRowAnalista(boolean rowAnalista) {
+		this.rowAnalista = rowAnalista;
+	}
+
+
+	public boolean getRowUsuario() {
+		return rowUsuario;
+	}
+
+
+	public void setRowUsuario(boolean rowUsuario) {
+		this.rowUsuario = rowUsuario;
+	}
+
+
+	public boolean getRowUsuarioTeste() {
+		return rowUsuarioTeste;
+	}
+
+
+	public void setRowUsuarioTeste(boolean rowUsuarioTeste) {
+		this.rowUsuarioTeste = rowUsuarioTeste;
 	}
 
 }
