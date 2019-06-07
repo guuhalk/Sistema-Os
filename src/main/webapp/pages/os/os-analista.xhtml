@@ -54,42 +54,47 @@
 
 					<!-- Em Desenvolvimento -->
 
-					<b:panel collapsible="false" styleClass="panel-default-semBorda" title="Desenvolvimento"  >
+					<b:panel collapsible="false" styleClass="panel-default-semBorda"
+						title="Desenvolvimento">
 
 
 						<b:dataTable searching="false" border="none" info="false"
 							pageLength="10"
 							value="#{analistaOsBean.listaChamadoDesenvolvimento}"
 							var="chamadoDesen">
-							
+
 							<b:dataTableColumn label="Id" value="#{chamadoDesen.osId}" />
-							<b:dataTableColumn label="Titulo" value="#{chamadoDesen.tituloOs}" />
-							<b:dataTableColumn label="Status" >
-								<b:label style="font-size:85%;font-weight: normal;"
-								text="#{interacaoOsBean.osSelecionada.statusFormatado}"
-								severity="#{interacaoOsBean.osSelecionada.corStatus}" />
+							<b:dataTableColumn label="Titulo"
+								value="#{chamadoDesen.tituloOs}" />
+							<b:dataTableColumn label="Status">
+								<h:outputText value="#{chamadoDesen.statusFormatado}" />
+					
+					
+					
 							</b:dataTableColumn>
-							
-							
-							<b:dataTableColumn label="Data Engrega" >
-								<p:outputLabel style="font-size:100%;font-weight: normal;" value="#{chamadoDesen.dataPrevisaoOs}">
+
+
+							<b:dataTableColumn label="Data Engrega">
+								<p:outputLabel style="font-size:100%;font-weight: normal;"
+									value="#{chamadoDesen.dataPrevisaoOs}">
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</p:outputLabel>
-	
+
 							</b:dataTableColumn>
-							
-							<b:dataTableColumn label="Tipo" value="#{chamadoDesen.tipoFormatado}" />
-							
-							
+
+							<b:dataTableColumn label="Tipo"
+								value="#{chamadoDesen.tipoFormatado}" />
+
+
 							<b:dataTableColumn label="Ações ">
-									
-									<b:commandLink look="default" value="Abrir"
-									icon="open-file" style="font-size:80%;" 
-									action="#{interacaoOsBean.redirecionarParaInteracao(chamadoDesen)}" >	
-									
-									</b:commandLink>
-									
-									
+
+								<b:commandLink look="default" value="Abrir" icon="open-file"
+									style="font-size:80%;"
+									action="#{interacaoOsBean.redirecionarParaInteracao(chamadoDesen)}">
+
+								</b:commandLink>
+
+
 							</b:dataTableColumn>
 
 						</b:dataTable>
@@ -106,14 +111,23 @@
 								value="Aguardando Resposta" />
 						</f:facet>
 
-						<b:dataTable searching="false" border="none" info="false" value="#{analistaOsBean.listaChamadoAguardandoUsuario}"
-						var="chamadoAU">
-							
+						<b:dataTable searching="false" border="none" info="false"
+							value="#{analistaOsBean.listaChamadoAguardandoUsuario}"
+							var="chamadoAU">
+
 							<b:dataTableColumn label="Id" value="#{chamadoAU.osId}" />
 							<b:dataTableColumn label="Titulo" value="#{chamadoAU.tituloOs}" />
 							<b:dataTableColumn label="Status" value="#{chamadoAU.statusOs}" />
-							<b:dataTableColumn label="Data Engrega " value="#{chamadoAU.dataPrevisaoOs}" />
-							<b:dataTableColumn label="Ações "  />
+							<b:dataTableColumn label="Data Engrega "
+								value="#{chamadoAU.dataPrevisaoOs}" />
+							<b:dataTableColumn label="Ações ">
+								
+								<b:commandLink look="default" value="Abrir" icon="open-file"
+									style="font-size:80%;"
+									action="#{interacaoOsBean.redirecionarParaInteracao(chamadoAU)}">
+
+								</b:commandLink>
+							</b:dataTableColumn>
 
 						</b:dataTable>
 
@@ -129,13 +143,23 @@
 								value="Aguardando Terceiro" />
 						</f:facet>
 
-						<b:dataTable searching="false" border="none" info="false" value="#{analistaOsBean.listaChamadoAguardandoTerceiro}"
-						var="chamadoAT">
+						<b:dataTable searching="false" border="none" info="false"
+							value="#{analistaOsBean.listaChamadoAguardandoTerceiro}"
+							var="chamadoAT">
 							<b:dataTableColumn label="Id" value="#{chamadoAT.osId}" />
 							<b:dataTableColumn label="Titulo" value="#{chamadoAT.tituloOs}" />
 							<b:dataTableColumn label="Status" value="#{chamadoAT.statusOs}" />
-							<b:dataTableColumn label="Data Engrega " value="#{chamadoAT.dataPrevisaoOs}" />
-							<b:dataTableColumn label="Ações "  />
+							<b:dataTableColumn label="Data Engrega "
+								value="#{chamadoAT.dataPrevisaoOs}" />
+							<b:dataTableColumn label="Ações " >
+									
+									<b:commandLink look="default" value="Abrir"
+									icon="open-file" style="font-size:80%;" 
+									action="#{interacaoOsBean.redirecionarParaInteracao(chamadoAT)}" >	
+									
+									</b:commandLink>
+								
+							</b:dataTableColumn>
 
 						</b:dataTable>
 
@@ -151,13 +175,24 @@
 								value="Em Teste" />
 						</f:facet>
 
-						<b:dataTable searching="false" border="none" info="false" value="#{analistaOsBean.listaChamadoTeste}" 
-						var="chamadoTeste">
+						<b:dataTable searching="false" border="none" info="false"
+							value="#{analistaOsBean.listaChamadoTeste}" var="chamadoTeste">
 							<b:dataTableColumn label="Id" value="#{chamadoTeste.osId}" />
-							<b:dataTableColumn label="Titulo" value="#{chamadoTeste.tituloOs}" />
-							<b:dataTableColumn label="Status" value="#{chamadoTeste.statusOs}" />
-							<b:dataTableColumn label="Data Engrega " value="#{chamadoTeste.dataPrevisaoOs}" />
-							<b:dataTableColumn label="Ações "  />
+							<b:dataTableColumn label="Titulo"
+								value="#{chamadoTeste.tituloOs}" />
+							<b:dataTableColumn>
+								<h:outputText ><span style="background-color: black;">#{chamadoTeste.statusFormatado}"</span>  </h:outputText>
+							</b:dataTableColumn>
+							
+							<b:dataTableColumn label="Data Engrega "
+								value="#{chamadoTeste.dataPrevisaoOs}" />
+							<b:dataTableColumn label="Ações " >
+															<b:commandLink look="default" value="Abrir"
+									icon="open-file" style="font-size:80%;" 
+									action="#{interacaoOsBean.redirecionarParaInteracao(chamadoTeste)}" >	
+									
+									</b:commandLink>
+							</b:dataTableColumn>
 
 						</b:dataTable>
 

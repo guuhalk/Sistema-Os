@@ -38,6 +38,8 @@ public class InteracaoOsBean extends GenericBean {
 		perfilUsuarioLogado = buscaUsuarioSessao().getPrfId().getPrfId();
 		listaDeInteracao = new InteracaoOsDao().buscarInteracaoDoChamado(os.getOsId());
 		validaRowDeRespostaChamado();
+		
+		
 			
 	}
 
@@ -46,6 +48,7 @@ public class InteracaoOsBean extends GenericBean {
 		
 		
 	}
+	
 	
 
 	public void validaRowDeRespostaChamado() {

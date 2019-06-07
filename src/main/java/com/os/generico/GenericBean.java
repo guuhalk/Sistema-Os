@@ -23,6 +23,7 @@ public class GenericBean extends GenericDao<GenericBean> {
 	public void redirecionarPagina(String caminho) {
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect(caminho);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

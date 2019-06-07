@@ -7,6 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.junit.Test;
+
 import com.os.dao.AlocaOsDao;
 import com.os.dao.AnalistaOsDao;
 import com.os.generico.GenericBean;
@@ -26,9 +28,7 @@ public class AnalistaOsBean extends GenericBean{
 	private List<OsChamado> listaChamadoAguardandoTerceiro;
 	private String usuarioLogado;
 	
-	
-	
-	
+
 	
 	@PostConstruct
 	public void init() {
