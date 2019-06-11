@@ -16,194 +16,401 @@
 
 			<b:container>
 				<br></br>
+				<b:row>
 
-				<b:column span="10">
+					<b:column span="10" style="height: 100px;">
 
-					<h3>Atendimento - Os</h3>
-					<hr></hr>
-					<br></br>
-					<br></br>
-					<br></br>
+						<h3>Atendimento - Os</h3>
+						<hr></hr>
+						<br></br>
+						<br></br>
+						<br></br>
+					</b:column>
+
+
+					<b:column span="2">
+
+						<b:badge
+							style="float: right; background-color: #ff6a00; margin-top: -10%; margin-right: 4%; font-size: 15px;"
+							value="#{analistaOsBean.quantidadeChamadosParaAlocar}"
+							rendered="#{analistaOsBean.quantidadeChamadosParaAlocar > 0}" />
+
+						<b:commandLink look="default" value="Alocar"
+							action="#{analistaOsBean.redirecionarPaginasParaAlocar}"
+							icon="glyphicon glyphicon-th-list"
+							style=" padding: 3%; font-size: 90%;" />
+
+						<b:commandLink look="default" value="Pesquisar Os"
+							icon="glyphicon glyphicon-search"
+							style=" padding: 3%; font-size: 90%;"
+							action="#{analistaOsBean.redirecionarPaginasParaPesquisarOs}" />
+					</b:column>
+
+				</b:row>
+
+
+				<b:row >
+				<b:column span="12" style="display:flex; padding-right: 234px; padding-left: 32px">
+					<b:commandLink look="default" value="Desenvolvimento"
+						style=" margin-right: 10px; width: 65%;"
+						action="#{analistaOsBean.validaDesenvolvimento}" > 
+					
+						<b:badge
+							style=" background-color: #ff6a00; font-size: 15px; margin-left: 5%;"
+							value="#{analistaOsBean.quantidadeChamadosDesenvolvimento}"
+							rendered="#{analistaOsBean.listaChamadoDesenvolvimento.size() > 0}" />
+					
+					</b:commandLink>
+
+					<b:commandLink look="default" value="Aguardando Usuario"
+						style=" margin-right: 10px; width: 65%; margin-top: 0px;"
+						action="#{analistaOsBean.validaAguardandoUsuario}" >
+									
+						<b:badge
+							style=" background-color: #ff6a00; font-size: 15px; margin-left: 5%;"
+							value="#{analistaOsBean.quantidadeChamadosAguardandoUsuario}" 
+							rendered="#{analistaOsBean.listaChamadoAguardandoUsuario.size() > 0}" />
+					
+					</b:commandLink>
+					
+					<b:commandLink look="default" value="Aguardando Terceiros"
+						style=" margin-right: 10px; width: 65%; margin-top: 0px;"
+						action="#{analistaOsBean.validaAguardandoTerceiro}" >
+									
+						<b:badge
+							style=" background-color: #ff6a00; font-size: 15px; margin-left: 5%;"
+							value="#{analistaOsBean.listaChamadoAguardandoTerceiro}"
+							rendered="#{analistaOsBean.listaChamadoAguardandoTerceiro.size() > 0}" />
+					
+					</b:commandLink>
+
+					<b:commandLink look="default" value="Teste"
+						style=" margin-right: 10px; width: 65%; margin-top: 0px;"
+						action="#{analistaOsBean.validaTeste}" >
+									
+						<b:badge
+							style=" background-color: #ff6a00; font-size: 15px; margin-left: 5%;"
+							value="#{analistaOsBean.quantidadeChamadosTeste}"
+							rendered="#{analistaOsBean.listaChamadoTeste.size() > 0}" />
+					
+					</b:commandLink>
 				</b:column>
+				</b:row>
 
+				<br />
+				<br />
 
-				<b:column span="2">
+				<b:column span="12">
 
-					<b:badge
-						style="float: right; background-color: #ff6a00; margin-top: -10%; margin-right: 4%; font-size: 15px;"
-						value="#{analistaOsBean.quantidadeChamadosParaAlocar}"
-						rendered="#{analistaOsBean.quantidadeChamadosParaAlocar > 0}" />
+					<ui:fragment rendered="#{analistaOsBean.rotinaDesenvolvimento}">
 
-					<b:commandLink look="default" value="Alocar"
-						action="#{analistaOsBean.redirecionarPaginasParaAlocar}"
-						icon="glyphicon glyphicon-th-list"
-						style=" padding: 3%; font-size: 90%;" />
+						<!-- Em Desenvolvimento -->
+						<br/>
+						<br/>
 
-					<b:commandLink look="default" value="Pesquisar Os"
-						icon="glyphicon glyphicon-search"
-						style=" padding: 3%; font-size: 90%;"
-						action="#{analistaOsBean.redirecionarPaginasParaPesquisarOs}" />
-				</b:column>
+						<b:row rendered="#{analistaOsBean.listaChamadoDesenvolvimento.size() == 0}" >
+							AQUI VAI ENTRAR UMA IMAGEM BONITINHA 
+						</b:row>							
+						
+						<b:row rendered="#{analistaOsBean.listaChamadoDesenvolvimento.size() > 0}" >
+							
+							<b:column span="1">
+								<p:outputLabel value="Id" />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Status" />
+							</b:column>
+							
+							<b:column span="3">
+								<p:outputLabel value="Titulo" />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Data Entrega " />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Tipo" />
+							</b:column>
+							
+							<b:column span="2">
+								<p:outputLabel value="Ações" />
+							</b:column>
+						
+						</b:row>
+						<hr />
 
-				<hr></hr>
-				<br></br>
-				<br></br>
-				<br></br>
-
-				<b:column span="10">
-
-					<!-- Em Desenvolvimento -->
-
-					<b:panel collapsible="false" styleClass="panel-default-semBorda"
-						title="Desenvolvimento">
-
-
-						<b:dataTable searching="false" border="none" info="false"
-							pageLength="10"
-							value="#{analistaOsBean.listaChamadoDesenvolvimento}"
-							var="chamadoDesen">
-
-							<b:dataTableColumn label="Id" value="#{chamadoDesen.osId}" />
-							<b:dataTableColumn label="Titulo"
-								value="#{chamadoDesen.tituloOs}" />
-							<b:dataTableColumn label="Status">
-								<h:outputText value="#{chamadoDesen.statusFormatado}" />
-					
-					
-					
-							</b:dataTableColumn>
-
-
-							<b:dataTableColumn label="Data Engrega">
-								<p:outputLabel style="font-size:100%;font-weight: normal;"
-									value="#{chamadoDesen.dataPrevisaoOs}">
+						<b:row>
+						<ui:repeat value="#{analistaOsBean.listaChamadoDesenvolvimento}" var="chamadoDesen">
+						
+							<b:column span="1">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoDesen.osId}" />
+							</b:column>
+							
+							<b:column span="2">
+								<b:label style="font-size:85%;font-weight: normal;"
+									text="#{chamadoDesen.statusFormatado}" severity="#{chamadoDesen.corStatus}" />
+							</b:column>
+							
+							<b:column span="3">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoDesen.tituloOs}" />
+							</b:column>
+							
+							<b:column span="2">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoDesen.dataPrevisaoOs}" >
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</p:outputLabel>
+							</b:column>
 
-							</b:dataTableColumn>
-
-							<b:dataTableColumn label="Tipo"
-								value="#{chamadoDesen.tipoFormatado}" />
-
-
-							<b:dataTableColumn label="Ações ">
-
+							<b:column span="2">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoDesen.tipoFormatado}" />
+							</b:column>
+							
+							<b:column span="2">
 								<b:commandLink look="default" value="Abrir" icon="open-file"
-									style="font-size:80%;"
-									action="#{interacaoOsBean.redirecionarParaInteracao(chamadoDesen)}">
-
-								</b:commandLink>
-
-
-							</b:dataTableColumn>
-
-						</b:dataTable>
-
-					</b:panel>
+										style="font-size:80%; padding: 5px;"
+										action="#{interacaoOsBean.redirecionarParaInteracao(chamadoDesen)}" />	
+							</b:column>
+						</ui:repeat>
+					</b:row>
 					<br></br>
-					<br></br>
+					</ui:fragment>
 
+
+<!--  ================================================================================================================================ -->
 					<!-- Aguardando Resposta -->
 
-					<b:panel collapsible="false" styleClass="panel-default-semBorda">
-						<f:facet name="heading">
-							<b:badge style="margin-left:10px; background-color:#5cb85c"
-								value="Aguardando Resposta" />
-						</f:facet>
+					<ui:fragment rendered="#{analistaOsBean.rotinaAguardandoUsuario}">
 
-						<b:dataTable searching="false" border="none" info="false"
-							value="#{analistaOsBean.listaChamadoAguardandoUsuario}"
-							var="chamadoAU">
+						<!-- Em Desenvolvimento -->
+						<br/>
+						<br/>
+						
+						<b:row rendered="#{analistaOsBean.listaChamadoAguardandoUsuario.size() == 0}" >
+							AQUI VAI ENTRAR UMA IMAGEM BONITINHA 
+						</b:row>						
+						
+						<b:row rendered="#{analistaOsBean.listaChamadoAguardandoUsuario.size() > 0}">
+							
+							<b:column span="1">
+								<p:outputLabel value="Id" />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Status" />
+							</b:column>
+							
+							<b:column span="3">
+								<p:outputLabel value="Titulo" />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Data Entrega " />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Tipo" />
+							</b:column>
+							
+							<b:column span="2">
+								<p:outputLabel value="Ações" />
+							</b:column>
+						
+						</b:row>
+						<hr />
 
-							<b:dataTableColumn label="Id" value="#{chamadoAU.osId}" />
-							<b:dataTableColumn label="Titulo" value="#{chamadoAU.tituloOs}" />
-							<b:dataTableColumn label="Status" value="#{chamadoAU.statusOs}" />
-							<b:dataTableColumn label="Data Engrega "
-								value="#{chamadoAU.dataPrevisaoOs}" />
-							<b:dataTableColumn label="Ações ">
-								
+						<b:row>
+						<ui:repeat value="#{analistaOsBean.listaChamadoAguardandoUsuario}" var="chamadoAgUsuario">
+						
+							<b:column span="1">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoAgUsuario.osId}" />
+							</b:column>
+							
+							<b:column span="2">
+								<b:label style="font-size:85%;font-weight: normal;"
+									text="#{chamadoAgUsuario.statusFormatado}" severity="#{chamadoAgUsuario.corStatus}" />
+							</b:column>
+							
+							<b:column span="3">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoAgUsuario.tituloOs}" />
+							</b:column>
+							
+							<b:column span="2">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoAgUsuario.dataPrevisaoOs}" >
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+							</b:column>
+
+							<b:column span="2">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoAgUsuario.tipoFormatado}" />
+							</b:column>
+							
+							<b:column span="2">
 								<b:commandLink look="default" value="Abrir" icon="open-file"
-									style="font-size:80%;"
-									action="#{interacaoOsBean.redirecionarParaInteracao(chamadoAU)}">
-
-								</b:commandLink>
-							</b:dataTableColumn>
-
-						</b:dataTable>
-
-					</b:panel>
-					<br></br>
-					<br></br>
-
+										style="font-size:80%; padding: 5px;"
+										action="#{interacaoOsBean.redirecionarParaInteracao(chamadoAgUsuario)}" />	
+							</b:column>
+						</ui:repeat>
+					</b:row>
+					<br></br>					
+					
+					</ui:fragment>
+					
+<!--  ================================================================================================================================ -->
 					<!-- Aguardando Terceiro -->
 
-					<b:panel collapsible="false" styleClass="panel-default-semBorda">
-						<f:facet name="heading">
-							<b:badge style="margin-left:10px; background-color:#5cb85c"
-								value="Aguardando Terceiro" />
-						</f:facet>
+					<ui:fragment rendered="#{analistaOsBean.rotinaAguardandoTerceiros}">
 
-						<b:dataTable searching="false" border="none" info="false"
-							value="#{analistaOsBean.listaChamadoAguardandoTerceiro}"
-							var="chamadoAT">
-							<b:dataTableColumn label="Id" value="#{chamadoAT.osId}" />
-							<b:dataTableColumn label="Titulo" value="#{chamadoAT.tituloOs}" />
-							<b:dataTableColumn label="Status" value="#{chamadoAT.statusOs}" />
-							<b:dataTableColumn label="Data Engrega "
-								value="#{chamadoAT.dataPrevisaoOs}" />
-							<b:dataTableColumn label="Ações " >
-									
-									<b:commandLink look="default" value="Abrir"
-									icon="open-file" style="font-size:80%;" 
-									action="#{interacaoOsBean.redirecionarParaInteracao(chamadoAT)}" >	
-									
-									</b:commandLink>
-								
-							</b:dataTableColumn>
+						
+						<br/>
+						<br/>
+						
+						<b:row rendered="#{analistaOsBean.listaChamadoAguardandoTerceiro.size() == 0}" >
+							AQUI VAI ENTRAR UMA IMAGEM BONITINHA 
+						</b:row>
+						
+						<b:row rendered="#{analistaOsBean.listaChamadoAguardandoTerceiro.size() > 0}">
+							
+							<b:column span="1">
+								<p:outputLabel value="Id" />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Status" />
+							</b:column>
+							
+							<b:column span="3">
+								<p:outputLabel value="Titulo" />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Data Entrega " />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Tipo" />
+							</b:column>
+							
+							<b:column span="2">
+								<p:outputLabel value="Ações" />
+							</b:column>
+						
+						</b:row>
+						<hr />
 
-						</b:dataTable>
+						<b:row>
+						<ui:repeat value="#{analistaOsBean.listaChamadoAguardandoTerceiro}" var="chamadoAgTerceiro">
+						
+							<b:column span="1">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoAgTerceiro.osId}" />
+							</b:column>
+							
+							<b:column span="2">
+								<b:label style="font-size:85%;font-weight: normal;"
+									text="#{chamadoAgTerceiro.statusFormatado}" severity="#{chamadoAgTerceiro.corStatus}" />
+							</b:column>
+							
+							<b:column span="3">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoAgTerceiro.tituloOs}" />
+							</b:column>
+							
+							<b:column span="2">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoAgTerceiro.dataPrevisaoOs}" >
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+							</b:column>
 
-					</b:panel>
-					<br></br>
-					<br></br>
+							<b:column span="2">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoAgTerceiro.tipoFormatado}" />
+							</b:column>
+							
+							<b:column span="2">
+								<b:commandLink look="default" value="Abrir" icon="open-file"
+										style="font-size:80%; padding: 5px;"
+										action="#{interacaoOsBean.redirecionarParaInteracao(chamadoAgTerceiro)}" />	
+							</b:column>
+						</ui:repeat>
+					</b:row>
+					<br></br>					
+					</ui:fragment>
+<!--  ================================================================================================================================ -->
 
 					<!-- Teste -->
+					<ui:fragment rendered="#{analistaOsBean.rotinateste}">
 
-					<b:panel collapsible="false" class="panel-default-semBorda">
-						<f:facet name="heading">
-							<b:badge style="margin-left:10px; background-color:#5cb85c"
-								value="Em Teste" />
-						</f:facet>
-
-						<b:dataTable searching="false" border="none" info="false"
-							value="#{analistaOsBean.listaChamadoTeste}" var="chamadoTeste">
-							<b:dataTableColumn label="Id" value="#{chamadoTeste.osId}" />
-							<b:dataTableColumn label="Titulo"
-								value="#{chamadoTeste.tituloOs}" />
-							<b:dataTableColumn>
-								<h:outputText ><span style="background-color: black;">#{chamadoTeste.statusFormatado}"</span>  </h:outputText>
-							</b:dataTableColumn>
+						
+						<br/>
+						<br/>
+						
+						<b:row rendered="#{analistaOsBean.listaChamadoTeste.size() == 0}" >
+							AQUI VAI ENTRAR UMA IMAGEM BONITINHA 
+						</b:row>
+						
+						<b:row rendered="#{analistaOsBean.listaChamadoTeste.size() > 0}">
 							
-							<b:dataTableColumn label="Data Engrega "
-								value="#{chamadoTeste.dataPrevisaoOs}" />
-							<b:dataTableColumn label="Ações " >
-															<b:commandLink look="default" value="Abrir"
-									icon="open-file" style="font-size:80%;" 
-									action="#{interacaoOsBean.redirecionarParaInteracao(chamadoTeste)}" >	
-									
-									</b:commandLink>
-							</b:dataTableColumn>
+							<b:column span="1">
+								<p:outputLabel value="Id" />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Status" />
+							</b:column>
+							
+							<b:column span="3">
+								<p:outputLabel value="Titulo" />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Data Entrega " />
+							</b:column>
+	
+							<b:column span="2">
+								<p:outputLabel value="Tipo" />
+							</b:column>
+							
+							<b:column span="2">
+								<p:outputLabel value="Ações" />
+							</b:column>
+						
+						</b:row>
+						<hr />
 
-						</b:dataTable>
+						<b:row>
+						<ui:repeat value="#{analistaOsBean.listaChamadoTeste}" var="chamadoTeste">
+						
+							<b:column span="1">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoTeste.osId}" />
+							</b:column>
+							
+							<b:column span="2">
+								<b:label style="font-size:85%;font-weight: normal;"
+									text="#{chamadoTeste.statusFormatado}" severity="#{chamadoTeste.corStatus}" />
+							</b:column>
+							
+							<b:column span="3">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoTeste.tituloOs}" />
+							</b:column>
+							
+							<b:column span="2">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoTeste.dataPrevisaoOs}" >
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+							</b:column>
 
-					</b:panel>
-
-
-				</b:column>
-
-
-				<b:column span="2">
-
+							<b:column span="2">
+								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoTeste.tipoFormatado}" />
+							</b:column>
+							
+							<b:column span="2">
+								<b:commandLink look="default" value="Abrir" icon="open-file"
+										style="font-size:80%; padding: 5px;"
+										action="#{interacaoOsBean.redirecionarParaInteracao(chamadoTeste)}" />	
+							</b:column>
+						</ui:repeat>
+					</b:row>
+					<br></br>
+					</ui:fragment>
 				</b:column>
 
 			</b:container>

@@ -23,7 +23,7 @@ public class NewOsDao extends GenericDao<OsChamado> {
 		try {
 			
 			StringBuilder sb = new StringBuilder();
-			sb.append("select os_id,os_status,os_data,os_tipo,os_titulo,os_usuabertura,os_descricao");
+			sb.append("select os_id,os_status,os_data,os_tipo,os_titulo,os_usuabertura,os_descricao,os_analista");
 			sb.append(" from os_chamado where os_usuabertura = :usuario ");
 			
 			Query query = em.createNativeQuery(sb.toString());
@@ -42,6 +42,7 @@ public class NewOsDao extends GenericDao<OsChamado> {
 				model.setTituloOs((String) result[4]);
 				model.setUsuAberturaOs((String) result[5]);
 				model.setDescricaoOs((String) result [6]);
+				model.setAnalistaOs((String) result[7]);
 				
 				lista.add(model);
 			

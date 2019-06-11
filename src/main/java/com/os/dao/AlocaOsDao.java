@@ -157,6 +157,6 @@ public class AlocaOsDao extends GenericDao<OsChamado>{
 		
 		return valor;
 	}
-	
+
 	
 }

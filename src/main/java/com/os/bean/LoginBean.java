@@ -23,7 +23,9 @@ public class LoginBean extends GenericBean {
 	
 	public void logar() {
 
-		validaUsuario(login, senha);
+		if (validaUsuario(login, senha)) {
+		
+		
 		usuario = new UsuarioDao().buscarUsuarioParaLogin(login, senha);
 
 		if (usuario != null) {
@@ -32,9 +34,12 @@ public class LoginBean extends GenericBean {
 			request.getSession().setAttribute("user", usuario);
 			redirecionarPagina("pages/index.xhtml");
 
+		}else {
+			
+			menssagemErro("Usuario ou Senha Incorretos!");
 		}
+	}
 
-		menssagemErro("Favor verificar login/password");
 	}
 
 	
@@ -47,20 +52,27 @@ public class LoginBean extends GenericBean {
 	}
 
 	
-	public void validaUsuario(String login, String senha) {
+	public boolean validaUsuario(String login, String senha) {
 
-		if ((login == null || login.isEmpty()) || (senha == null || senha.isEmpty())) {
+		if ((login == null || login.isEmpty()) && (senha == null || senha.isEmpty())) {
 			menssagemErro("Favor preencher os campos");
-		}
+			return false;
+		}else {
+			if (login == null || login.isEmpty()) {
+				menssagemErro("Favor preencher o login");
+				return false;
 
-		if (login == null || login.isEmpty()) {
-			menssagemErro("Favor preencher o login");
-		}
+			}
 
-		if (senha == null || senha.isEmpty()) {
-			menssagemErro("Favor preencher a senha");
+			else if (senha == null || senha.isEmpty()) {
+				menssagemErro("Favor preencher a senha");
+				return false;
+			}
+			
+			else {
+				return true;
+			}
 		}
-
 	}
 
 	// GATTERS AND SETTERS

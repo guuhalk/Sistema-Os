@@ -28,7 +28,8 @@ public class NewOsBean extends GenericBean {
 	private String nomeUsuarioLogado;
 	private String fileBlob;
 	private List<OsChamado> listaChamado;
-	 
+	private boolean botaoAlocarTrue;
+	private boolean botaoAlocarFalse;
 	
 	
 	
@@ -145,5 +146,22 @@ public class NewOsBean extends GenericBean {
 	public void setListaChamado(List<OsChamado> listaChamado) {
 		this.listaChamado = listaChamado;
 	}
+
+	public boolean isBotaoAlocarTrue() {
+		return botaoAlocarTrue;
+	}
+
+	public void setBotaoAlocarTrue(boolean botaoAlocarTrue) {
+		this.botaoAlocarTrue = botaoAlocarTrue;
+	}
+
+	public boolean isBotaoAlocarFalse() {
+		return botaoAlocarFalse;
+	}
+
+	public void setBotaoAlocarFalse(boolean botaoAlocarFalse) {
+		this.botaoAlocarFalse = botaoAlocarFalse;
+	}
+
 
 }

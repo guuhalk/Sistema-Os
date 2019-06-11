@@ -1,5 +1,6 @@
 package com.os.bean;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -26,23 +27,44 @@ public class InteracaoOsBean extends GenericBean {
 	private boolean rowAnalista;
 	private boolean rowUsuario;
 	private boolean rowUsuarioTeste;
+	private Interacao download;
 	
 	
 	
 	
-	public void redirecionarParaInteracao(OsChamado os) {
-		redirecionarPagina("os-interacao.xhtml");
-		this.osSelecionada = os;
-		idUsuarioLogado = buscaUsuarioSessao().getUsuId();
-		nomeUsuarioLogado = buscaUsuarioSessao().getUsuNome();
-		perfilUsuarioLogado = buscaUsuarioSessao().getPrfId().getPrfId();
-		listaDeInteracao = new InteracaoOsDao().buscarInteracaoDoChamado(os.getOsId());
-		validaRowDeRespostaChamado();
+	public void redirecionarParaInteracao(OsChamado os) throws UnsupportedEncodingException {
 		
+		if(os.getAnalistaOs() != null) {
 		
+			redirecionarPagina("os-interacao.xhtml");
+			this.osSelecionada = os;
+			idUsuarioLogado = buscaUsuarioSessao().getUsuId();
+			nomeUsuarioLogado = buscaUsuarioSessao().getUsuNome();
+			perfilUsuarioLogado = buscaUsuarioSessao().getPrfId().getPrfId();
+			listaDeInteracao = new InteracaoOsDao().buscarInteracaoDoChamado(os.getOsId());
+			validaRowDeRespostaChamado();
 			
+			
+		}else {
+			menssagemAviso("Impossivel abrir o chamado                                                               Chamado ainda nao foi alocado para um analista.");
+			
+		}
+	
 	}
 
+	/*
+	public Interacao downloadAnexo() throws UnsupportedEncodingException {
+		
+		for (Interacao interacao : listaDeInteracao) {
+		
+			 byte[] decodedBytes = Base64.getDecoder().decode(interacao.getAnexo());
+			 download.setAnexo(new String(decodedBytes, "UTF_8"));
+			
+		}
+		
+		return this.download;
+	
+	} */
 	
 	public void gravarInteracao() {
 		
@@ -176,6 +198,16 @@ public class InteracaoOsBean extends GenericBean {
 
 	public void setRowUsuarioTeste(boolean rowUsuarioTeste) {
 		this.rowUsuarioTeste = rowUsuarioTeste;
+	}
+
+
+	public Interacao getDownload() {
+		return download;
+	}
+
+
+	public void setDownload(Interacao download) {
+		this.download = download;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.os.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -203,6 +204,148 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 		return lista;
 		
 	}
+	
+	
+	public BigInteger buscarQuantidadeDeChamadosEmDesenvolvimento(){
+		
+		BigInteger valor = null;
+
+		EntityManager em = getEntityManager();
+		
+		try {
+			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(" select  ");
+			sb.append(" count(os_id) ");
+
+			sb.append(" from ");
+			sb.append(" os_chamado ");
+
+			sb.append(" where os_status = 1 ");
+
+			
+			Query query = em.createNativeQuery(sb.toString());
+			valor = (BigInteger) query.getSingleResult();
+			
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+		}finally {
+			em.close();
+		}
+		
+		return valor;
+	}
+	
+	
+	public BigInteger buscarQuantidadeDeChamadosAguardandoUsuario(){
+		
+		BigInteger valor = null;
+
+		EntityManager em = getEntityManager();
+		
+		try {
+			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(" select  ");
+			sb.append(" count(os_id) ");
+
+			sb.append(" from ");
+			sb.append(" os_chamado ");
+
+			sb.append(" where os_status = 2 ");
+
+			
+			Query query = em.createNativeQuery(sb.toString());
+			valor = (BigInteger) query.getSingleResult();
+			
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+		}finally {
+			em.close();
+		}
+		
+		return valor;
+	}
+	
+	
+	public BigInteger buscarQuantidadeDeChamadosAguardandoTerceiros(){
+		
+		BigInteger valor = null;
+
+		EntityManager em = getEntityManager();
+		
+		try {
+			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(" select  ");
+			sb.append(" count(os_id) ");
+
+			sb.append(" from ");
+			sb.append(" os_chamado ");
+
+			sb.append(" where os_status = 3");
+
+			
+			Query query = em.createNativeQuery(sb.toString());
+			valor = (BigInteger) query.getSingleResult();
+			
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+		}finally {
+			em.close();
+		}
+		
+		return valor;
+	}
+	
+
+	public BigInteger buscarQuantidadeDeChamadosEmTeste(){
+		
+		BigInteger valor = null;
+
+		EntityManager em = getEntityManager();
+		
+		try {
+			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(" select  ");
+			sb.append(" count(os_id) ");
+
+			sb.append(" from ");
+			sb.append(" os_chamado ");
+
+			sb.append(" where os_status = 4 ");
+
+			
+			Query query = em.createNativeQuery(sb.toString());
+			valor = (BigInteger) query.getSingleResult();
+			
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+		}finally {
+			em.close();
+		}
+		
+		return valor;
+	}
+	
+	
 	
 	
 }
