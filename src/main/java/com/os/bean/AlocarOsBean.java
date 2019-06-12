@@ -21,7 +21,7 @@ public class AlocarOsBean  extends GenericBean{
 	private List<OsChamado> listaChamado;
 	private List<Usuario> listaDeAnalistas;
 	private OsChamado chamadoSelecionado;
-	private String responsavel;
+	private Integer responsavel;
 	private Date dataPrevisao;
 	
 	
@@ -37,9 +37,18 @@ public class AlocarOsBean  extends GenericBean{
 	
 	public void alocarChamado() {
 		
+		String analista = null;
+		
 		if(validaChamado()){
 		
-			String analista = new AlocaOsDao().bucarAnalistaParaAlocar(responsavel);
+			for (Usuario anl : listaDeAnalistas) {
+				
+				if(responsavel.equals(anl.getUsuId())) {
+					analista = anl.getUsuNome();	
+					
+				}
+				
+			}
 			
 			if(analista != null ) {
 				
@@ -69,7 +78,7 @@ public class AlocarOsBean  extends GenericBean{
 		
 		if(chamadoSelecionado.getOsId() != null) {		
 			if(tipo != null) {
-				if( responsavel != null || !responsavel.isEmpty() ) {
+				if( responsavel != null) {
 					if(dataPrevisao != null) {
 						return true;
 					}else {
@@ -151,12 +160,12 @@ public class AlocarOsBean  extends GenericBean{
 	}
 
 
-	public String getResponsavel() {
+	public Integer getResponsavel() {
 		return responsavel;
 	}
 
 
-	public void setResponsavel(String responsavel) {
+	public void setResponsavel(Integer responsavel) {
 		this.responsavel = responsavel;
 	}
 
