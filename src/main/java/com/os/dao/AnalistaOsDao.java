@@ -223,7 +223,7 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 			sb.append(" os_chamado ");
 
 			sb.append(" where os_status = 1 ");
-
+			sb.append(" and not os_analista is null ");
 			
 			Query query = em.createNativeQuery(sb.toString());
 			valor = (BigInteger) query.getSingleResult();

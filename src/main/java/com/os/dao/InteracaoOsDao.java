@@ -69,14 +69,16 @@ public class InteracaoOsDao extends GenericDao<OsChamado> {
 			
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append(" SELECT ");
-			sb.append(" os_interacao.in_id ");
+			sb.append("  SELECT ");
+			sb.append("  os_interacao.in_id ");
 			sb.append(" ,os_interacao.os_id ");
 			sb.append(" ,os_interacao.usu_id ");
 			sb.append(" ,os_interacao.in_data ");
 			sb.append(" ,os_interacao.in_descricao ");
 			sb.append(" ,os_interacao.in_anexo ");
 			sb.append(" ,usuario.usu_nome ");
+			sb.append(" ,usuario.prf_id  ");
+			
 
 			sb.append(" FROM ");
 			sb.append(" os_interacao ");
@@ -96,13 +98,14 @@ public class InteracaoOsDao extends GenericDao<OsChamado> {
 				
 				Interacao model = new Interacao();
 				
-				model.setInId((Integer)       result[0]);
-				model.setOsId((Integer)       result[1]);
-				model.setUsuId((Integer)      result[2]);
-				model.setInData((Date)        result[3]);
-				model.setInDescricao((String) result[4]);
-				model.setAnexo((String)       result[5]);
-				model.setNomeUsuario((String) result[6]);
+				model.setInId((Integer)               		result[0]);
+				model.setOsId((Integer)       		  		result[1]);
+				model.setUsuId((Integer)      		  		result[2]);
+				model.setInData((Date)        		  		result[3]);
+				model.setInDescricao((String) 		  		result[4]);
+				model.setAnexo((String)      		  		result[5]);
+				model.setNomeUsuario((String) 		  		result[6]);
+				model.setPerfilDoUsuarioInteracao((Integer) result[7]);
 				
 				lista.add(model);
 			
@@ -118,6 +121,73 @@ public class InteracaoOsDao extends GenericDao<OsChamado> {
 		return lista;
 	}
 	
+	
+	
+	public boolean gravarInteracaoDoAnalista (Integer  idOs, Integer usuId, String descricao, Integer statusOs){
+		EntityManager em = getEntityManager();
+		
+		try {
+			
+			em.getTransaction().begin();
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(" insert into os_db.os_interacao (in_id, os_id, usu_id, in_data, in_descricao) ");
+			sb.append(" values (null, :idOs, :usuId, now(), :descricao)  ");
+	
+			Query query = em.createNativeQuery(sb.toString());
+			
+			query.setParameter("idOs", idOs);
+			query.setParameter("usuId", usuId);
+			query.setParameter("descricao", descricao);
+			
+			query.executeUpdate();
+			em.getTransaction().commit();
+			
+			alterarStatusDoChamado(statusOs,idOs);
+			
+			return true;
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction();
+			return false;
+		
+		}finally {
+			em.close();
+		}
+
+	}
+	
+	
+	public void alterarStatusDoChamado (Integer statusOs, Integer osId){
+		EntityManager em = getEntityManager();
+		
+		try {
+			
+			em.getTransaction().begin();
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(" update os_chamado set os_status = :status ");
+			sb.append(" where os_id = :osId  ");
+	
+			Query query = em.createNativeQuery(sb.toString());
+			
+			query.setParameter("status", statusOs);
+			query.setParameter("osId", osId);
+
+			
+			query.executeUpdate();
+			em.getTransaction().commit();
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction();
+
+
+		}
+	}
 	
 	
 	

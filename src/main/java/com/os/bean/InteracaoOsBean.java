@@ -28,6 +28,7 @@ public class InteracaoOsBean extends GenericBean {
 	private boolean rowUsuario;
 	private boolean rowUsuarioTeste;
 	private Interacao download;
+
 	
 	
 	
@@ -43,7 +44,7 @@ public class InteracaoOsBean extends GenericBean {
 			perfilUsuarioLogado = buscaUsuarioSessao().getPrfId().getPrfId();
 			listaDeInteracao = new InteracaoOsDao().buscarInteracaoDoChamado(os.getOsId());
 			validaRowDeRespostaChamado();
-			
+		
 			
 		}else {
 			menssagemAviso("Impossivel abrir o chamado                                                               Chamado ainda nao foi alocado para um analista.");
@@ -66,12 +67,30 @@ public class InteracaoOsBean extends GenericBean {
 	
 	} */
 	
-	public void gravarInteracao() {
+	public void gravarInteracaoAnalista() {
 		
-		
+		if(statusOs != null) {
+			if(descricaoDaInteracao != null) {
+				
+				if (new InteracaoOsDao().gravarInteracaoDoAnalista(osSelecionada.getOsId(), idUsuarioLogado, descricaoDaInteracao,statusOs)) {
+					listaDeInteracao = new InteracaoOsDao().buscarInteracaoDoChamado(osSelecionada.getOsId());
+					menssagemSucesso("Interação feita com sucesso.");
+					
+				}else {
+					menssagemErro("Erro ao fazer a interação.");
+				}
+				
+				
+			}else {
+				menssagemAviso("Favor inserir uma descrição.");
+			}
+			
+		}else {
+			menssagemAviso("Favor selecionar o status.");	
+		}
 	}
 	
-	
+
 
 	public void validaRowDeRespostaChamado() {
 		if(perfilUsuarioLogado != 1 && perfilUsuarioLogado != 3) {	
@@ -209,5 +228,7 @@ public class InteracaoOsBean extends GenericBean {
 	public void setDownload(Interacao download) {
 		this.download = download;
 	}
+
+
 
 }

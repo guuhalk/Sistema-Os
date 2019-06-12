@@ -12,6 +12,7 @@ public class Interacao {
 	private String inDescricao;
 	private String anexo;
 	private String nomeUsuario;
+	private Integer perfilDoUsuarioInteracao;
 	
 	
 	// GATTERS AND SETTERS
@@ -56,6 +57,12 @@ public class Interacao {
 	}
 	public void setNomeUsuario(String nomeUsuario) {
 		this.nomeUsuario = nomeUsuario;
+	}
+	public Integer getPerfilDoUsuarioInteracao() {
+		return perfilDoUsuarioInteracao;
+	}
+	public void setPerfilDoUsuarioInteracao(Integer perfilDoUsuarioInteracao) {
+		this.perfilDoUsuarioInteracao = perfilDoUsuarioInteracao;
 	}
 
 }

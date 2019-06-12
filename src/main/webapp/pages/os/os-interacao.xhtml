@@ -43,46 +43,66 @@
 				<b:row>
 					<b:column span="7">
 						<b:well>
-							<b:row style="margin-left:5px;">
-								<h:outputText value="Descricao: "
-									style=" margin-right: 2%; font-weight: 600;" />
-								<h:outputText
-									value="#{interacaoOsBean.osSelecionada.descricaoOs}" />
+							<b:column span="12">
+								<b:row style="margin-left:5px;">
+									<h:outputText value="Descricao: "
+										style=" margin-right: 2%; font-weight: 600;" />
+									<h:outputText
+										value="#{interacaoOsBean.osSelecionada.descricaoOs}" />
 
 								<br />
-
-							</b:row>
-
-							<b:row style="margin-left:5px;">
-								<hr />
+								</b:row>
+								</b:column >	
+								<b:row style="margin-left:5px; opacity: 0; " >
+									<hr />
 								
-								<p:commandLink value="Anexo" ><b:icon  style="float:left; margin-right: 6px;" value="download-alt" />
+									<p:commandLink value="Anexo" ><b:icon  style="float:left; margin-right: 6px;" value="download-alt" />
 									
-								</p:commandLink> 	
+									</p:commandLink> 	
 								
-							</b:row>
+								</b:row>
+													
 						</b:well>
 
 						<br />
 						<br />
-						<p:repeat var="interacao"
-							value="#{interacaoOsBean.listaDeInteracao}">
+						
+						<p:repeat var="interacao" value="#{interacaoOsBean.listaDeInteracao}">
+										
 							<b:panel>
 								<b:row>
+								
+									<b:column span="9" >
+										
+									<p:outputLabel value="Descricao:    " />	
+									<h:outputText value="#{interacao.inDescricao}" />
+										
+									</b:column>
 
-									<b:column span="3">
+									<b:column span="3" visible=" large-screen,medium-screen">
 										<b:image library="imagens" name="userInteracao.png"
-											style="width: 65%;" />
+											style="width: 65%; float:right;" />
 										<br />
 									</b:column>
+									<br/>
+									
 
-									<b:column span="9">
-
-									</b:column>
-
+										<p:outputLabel value="Usuario: " 
+											style=" margin-left: 10px; margin-right: 5px; font-size: 85%;" />
+										
+										<h:outputText value="#{interacao.nomeUsuario}" style="font-size: 85%;" />
+										
+										<p:outputLabel value="Data: " 
+											style=" margin-left: 10px; margin-right: 5px; font-size: 85%;" />
+										
+										<h:outputText value="#{interacao.inData}" style="font-size: 85%;" >
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+								
 								</b:row>
 							</b:panel>
 							<br />
+	
 						</p:repeat>
 						<br />
 						<br />
@@ -122,7 +142,8 @@
 							</b:selectOneMenu>
 
 							<b:commandLink value="Enviar" look="success"
-								style=" width: 16%; height: fit-content; margin-top: 23px; margin-left: 41%;" />
+								style=" width: 16%; height: fit-content; margin-top: 23px; margin-left: 41%;"
+								action="#{interacaoOsBean.gravarInteracaoAnalista}" />
 
 						</b:row>
 						
@@ -148,9 +169,6 @@
 						<br /><br />
 						<br /><br />
 						<br /><br />
-
-
-
 
 					</b:column>
 
