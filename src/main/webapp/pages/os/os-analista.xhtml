@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -5,6 +6,7 @@
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
 	template="/templates/template.xhtml">
 
+	
 	<ui:define name="header">
 	</ui:define>
 
@@ -30,15 +32,25 @@
 
 					<b:column span="2">
 
-						<b:badge
-							style="float: right; background-color: #ff6a00; margin-top: -10%; margin-right: 4%; font-size: 15px;"
-							value="#{analistaOsBean.quantidadeChamadosParaAlocar}"
-							rendered="#{analistaOsBean.quantidadeChamadosParaAlocar > 0}" />
+						<b:commandLink look="default" value="" icon="arrow-left"
+							style=" padding: 3%; font-size: 90%;"
+							action="#{analistaOsBean.redirecionarParaIndex}" />
+
+						
 
 						<b:commandLink look="default" value="Alocar"
 							action="#{analistaOsBean.redirecionarPaginasParaAlocar}"
 							icon="glyphicon glyphicon-th-list"
-							style=" padding: 3%; font-size: 90%;" />
+							style=" padding: 3%; font-size: 90%;" >
+							
+							<b:badge
+							style="float: right; background-color: #f79f06; font-size: 15px;"
+							value="#{analistaOsBean.quantidadeChamadosParaAlocar}"
+							rendered="#{analistaOsBean.quantidadeChamadosParaAlocar > 0}" />
+							
+							
+							</b:commandLink>
+							
 
 						<b:commandLink look="default" value="Pesquisar Os"
 							icon="glyphicon glyphicon-search"
@@ -50,13 +62,13 @@
 
 
 				<b:row >
-				<b:column span="12" style="display:flex; padding-right: 234px; padding-left: 32px">
+				<b:column span="12" style="display: flex !important; padding-right: 234px; padding-left: 32px;" visible="lg" >
 					<b:commandLink look="default" value="Desenvolvimento"
 						style=" margin-right: 10px; width: 65%;"
 						action="#{analistaOsBean.validaDesenvolvimento}" > 
 					
 						<b:badge
-							style=" background-color: #ff6a00; font-size: 15px; margin-left: 5%;"
+							style=" background-color: #f79f06; font-size: 15px; margin-left: 5%;"
 							value="#{analistaOsBean.quantidadeChamadosDesenvolvimento}"
 							rendered="#{analistaOsBean.listaChamadoDesenvolvimento.size() > 0}" />
 					
@@ -67,7 +79,7 @@
 						action="#{analistaOsBean.validaAguardandoUsuario}" >
 									
 						<b:badge
-							style=" background-color: #ff6a00; font-size: 15px; margin-left: 5%;"
+							style=" background-color: #f79f06; font-size: 15px; margin-left: 5%;"
 							value="#{analistaOsBean.quantidadeChamadosAguardandoUsuario}" 
 							rendered="#{analistaOsBean.listaChamadoAguardandoUsuario.size() > 0}" />
 					
@@ -78,8 +90,8 @@
 						action="#{analistaOsBean.validaAguardandoTerceiro}" >
 									
 						<b:badge
-							style=" background-color: #ff6a00; font-size: 15px; margin-left: 5%;"
-							value="#{analistaOsBean.listaChamadoAguardandoTerceiro}"
+							style=" background-color: #f79f06; font-size: 15px; margin-left: 5%;"
+							value="#{analistaOsBean.quantidadeChamadosAguardandoTerceiros}"
 							rendered="#{analistaOsBean.listaChamadoAguardandoTerceiro.size() > 0}" />
 					
 					</b:commandLink>
@@ -89,12 +101,60 @@
 						action="#{analistaOsBean.validaTeste}" >
 									
 						<b:badge
-							style=" background-color: #ff6a00; font-size: 15px; margin-left: 5%;"
+							style=" background-color: #f79f06; font-size: 15px; margin-left: 5%;"
 							value="#{analistaOsBean.quantidadeChamadosTeste}"
 							rendered="#{analistaOsBean.listaChamadoTeste.size() > 0}" />
 					
 					</b:commandLink>
 				</b:column>
+			
+				
+				<b:column span="12" style=" padding-right: 234px; padding-left: 32px" visible="sm,xs" >
+					<b:commandLink look="default" value="Desenvolvimento"
+						style=" margin-right: 10px; width: 65%;"
+						action="#{analistaOsBean.validaDesenvolvimento}" > 
+					
+						<b:badge
+							style=" background-color: #f79f06; font-size: 15px; margin-left: 5%;"
+							value="#{analistaOsBean.quantidadeChamadosDesenvolvimento}"
+							rendered="#{analistaOsBean.listaChamadoDesenvolvimento.size() > 0}" />
+					
+					</b:commandLink>
+
+					<b:commandLink look="default" value="Aguardando Usuario"
+						style=" margin-right: 10px; width: 65%; margin-top: 0px;"
+						action="#{analistaOsBean.validaAguardandoUsuario}" >
+									
+						<b:badge
+							style=" background-color: #f79f06; font-size: 15px; margin-left: 5%;"
+							value="#{analistaOsBean.quantidadeChamadosAguardandoUsuario}" 
+							rendered="#{analistaOsBean.listaChamadoAguardandoUsuario.size() > 0}" />
+					
+					</b:commandLink>
+					
+					<b:commandLink look="default" value="Aguardando Terceiros"
+						style=" margin-right: 10px; width: 65%; margin-top: 0px;"
+						action="#{analistaOsBean.validaAguardandoTerceiro}" >
+									
+						<b:badge
+							style=" background-color: #f79f06; font-size: 15px; margin-left: 5%;"
+							value="#{analistaOsBean.quantidadeChamadosAguardandoTerceiros}"
+							rendered="#{analistaOsBean.listaChamadoAguardandoTerceiro.size() > 0}" />
+					
+					</b:commandLink>
+
+					<b:commandLink look="default" value="Teste"
+						style=" margin-right: 10px; width: 65%; margin-top: 0px;"
+						action="#{analistaOsBean.validaTeste}" >
+									
+						<b:badge
+							style=" background-color: #f79f06; font-size: 15px; margin-left: 5%;"
+							value="#{analistaOsBean.quantidadeChamadosTeste}"
+							rendered="#{analistaOsBean.listaChamadoTeste.size() > 0}" />
+					
+					</b:commandLink>
+				</b:column>
+
 				</b:row>
 
 				<br />
@@ -109,37 +169,39 @@
 						<br/>
 
 						<b:row rendered="#{analistaOsBean.listaChamadoDesenvolvimento.size() == 0}" >
-							AQUI VAI ENTRAR UMA IMAGEM BONITINHA 
+							
+							<b:image library="imagens" name="naopossuichamandoemdesenvolvimento.png" style="width:50%; margin-left: 23%;"/>
+						
 						</b:row>							
 						
 						<b:row rendered="#{analistaOsBean.listaChamadoDesenvolvimento.size() > 0}" >
 							
-							<b:column span="1">
+							<b:column span="1" visible=" large-screen,medium-screen" >
 								<p:outputLabel value="Id" />
 							</b:column>
 	
-							<b:column span="2">
+							<b:column span="2" visible=" large-screen,medium-screen" >
 								<p:outputLabel value="Status" />
 							</b:column>
 							
-							<b:column span="3">
+							<b:column span="3" visible=" large-screen,medium-screen" >
 								<p:outputLabel value="Titulo" />
 							</b:column>
 	
-							<b:column span="2">
+							<b:column span="2" visible=" large-screen,medium-screen" >
 								<p:outputLabel value="Data Entrega " />
 							</b:column>
 	
-							<b:column span="2">
+							<b:column span="2" visible=" large-screen,medium-screen" >
 								<p:outputLabel value="Tipo" />
 							</b:column>
 							
-							<b:column span="2">
-								<p:outputLabel value="AÃ§Ãµes" />
+							<b:column span="2" visible=" large-screen,medium-screen" >
+								<p:outputLabel value="Ações" />
 							</b:column>
 						
 						</b:row>
-						<hr />
+					
 
 						<b:row>
 						<ui:repeat value="#{analistaOsBean.listaChamadoDesenvolvimento}" var="chamadoDesen">
@@ -188,7 +250,7 @@
 						<br/>
 						
 						<b:row rendered="#{analistaOsBean.listaChamadoAguardandoUsuario.size() == 0}" >
-							AQUI VAI ENTRAR UMA IMAGEM BONITINHA 
+							<b:image library="imagens" name="naopossuichamandoaguardandousuarios.png" style="width:50%; margin-left: 23%;"/>
 						</b:row>						
 						
 						<b:row rendered="#{analistaOsBean.listaChamadoAguardandoUsuario.size() > 0}">
@@ -214,11 +276,11 @@
 							</b:column>
 							
 							<b:column span="2">
-								<p:outputLabel value="AÃ§Ãµes" />
+								<p:outputLabel value="Ações" />
 							</b:column>
 						
 						</b:row>
-						<hr />
+				
 
 						<b:row>
 						<ui:repeat value="#{analistaOsBean.listaChamadoAguardandoUsuario}" var="chamadoAgUsuario">
@@ -267,7 +329,7 @@
 						<br/>
 						
 						<b:row rendered="#{analistaOsBean.listaChamadoAguardandoTerceiro.size() == 0}" >
-							AQUI VAI ENTRAR UMA IMAGEM BONITINHA 
+							<b:image library="imagens" name="naopossuichamandoaguardandoterceiros.png" style="width:50%; margin-left: 23%;"/>
 						</b:row>
 						
 						<b:row rendered="#{analistaOsBean.listaChamadoAguardandoTerceiro.size() > 0}">
@@ -293,11 +355,11 @@
 							</b:column>
 							
 							<b:column span="2">
-								<p:outputLabel value="AÃ§Ãµes" />
+								<p:outputLabel value="Ações" />
 							</b:column>
 						
 						</b:row>
-						<hr />
+				
 
 						<b:row>
 						<ui:repeat value="#{analistaOsBean.listaChamadoAguardandoTerceiro}" var="chamadoAgTerceiro">
@@ -344,7 +406,7 @@
 						<br/>
 						
 						<b:row rendered="#{analistaOsBean.listaChamadoTeste.size() == 0}" >
-							AQUI VAI ENTRAR UMA IMAGEM BONITINHA 
+							<b:image library="imagens" name="naopossuichamandoemteste.png" style="width:50%; margin-left: 23%;"/>
 						</b:row>
 						
 						<b:row rendered="#{analistaOsBean.listaChamadoTeste.size() > 0}">
@@ -370,11 +432,11 @@
 							</b:column>
 							
 							<b:column span="2">
-								<p:outputLabel value="AÃ§Ãµes" />
+								<p:outputLabel value="Ações" />
 							</b:column>
 						
 						</b:row>
-						<hr />
+				
 
 						<b:row>
 						<ui:repeat value="#{analistaOsBean.listaChamadoTeste}" var="chamadoTeste">
@@ -389,7 +451,8 @@
 							</b:column>
 							
 							<b:column span="3">
-								<p:outputLabel style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoTeste.tituloOs}" />
+								<h:outputText style="font-size:100%;font-weight: normal; padding: 5px;" value="#{chamadoTeste.tituloOs}" />
+								
 							</b:column>
 							
 							<b:column span="2">

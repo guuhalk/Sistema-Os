@@ -25,7 +25,7 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(" select os_id,os_status,os_data,os_tipo,os_titulo,os_usuabertura,os_analista,os_descricao,os_dataprevisao ");
-			sb.append(" from os_chamado where os_status = 1 and os_analista = :analista ");
+			sb.append(" from os_chamado where os_status in(1,6) and os_analista = :analista order by os_status desc, os_data ");
 
 			
 			Query query = em.createNativeQuery(sb.toString());
@@ -222,7 +222,7 @@ public class AnalistaOsDao extends GenericDao<OsChamado> {
 			sb.append(" from ");
 			sb.append(" os_chamado ");
 
-			sb.append(" where os_status = 1 ");
+			sb.append(" where os_status in(1,6) ");
 			sb.append(" and not os_analista is null ");
 			
 			Query query = em.createNativeQuery(sb.toString());

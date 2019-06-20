@@ -125,7 +125,7 @@ public class OsChamado {
 		}
 		
 		if(statusOs == 6) {
-			this.corStatus = "Danger";
+			this.corStatus = "danger";
 		}
 		
 		return corStatus;

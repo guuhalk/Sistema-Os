@@ -1,5 +1,6 @@
 package com.os.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,7 @@ public class NewOsDao extends GenericDao<OsChamado> {
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append("select os_id,os_status,os_data,os_tipo,os_titulo,os_usuabertura,os_descricao,os_analista");
-			sb.append(" from os_chamado where os_usuabertura = :usuario ");
+			sb.append(" from os_chamado where os_usuabertura = :usuario and os_status <> 5 ");
 			
 			Query query = em.createNativeQuery(sb.toString());
 			query.setParameter("usuario", usuario);
@@ -104,6 +105,30 @@ public class NewOsDao extends GenericDao<OsChamado> {
 		
 		
 		return true;
+	}
+	
+	
+	@SuppressWarnings("unused")
+	public BigInteger buscarQuantidadeDeChamadosEmTeste(String usuario) {
+		
+		
+		EntityManager em = getEntityManager();
+		
+		try {
+			String sql = "select count(os_id) from os_chamado where os_usuabertura = :usuario  and os_status = 4 ";
+			
+			Query query = em.createNativeQuery(sql);
+			query.setParameter("usuario", usuario);
+			
+			return  (BigInteger) query.getSingleResult();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null; 
+		}finally {
+			em.close();	
+		}
+		
 	}
 	
 	

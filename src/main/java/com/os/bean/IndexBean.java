@@ -49,6 +49,8 @@ public class IndexBean extends GenericBean {
 	}
 	
 
+	
+
 	// GATTERS AND SETTERS
 	public String getUsuarioLogado() {
 		return usuarioLogado;

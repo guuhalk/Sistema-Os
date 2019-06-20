@@ -11,7 +11,7 @@
 	<ui:define name="content">
 		<b:growl id="growlMsg" globalOnly="true" placementFrom="top"
 			show-detail="true" show-summary="false" delay="2000" escape="true" />
-		<h:form>
+		<h:form >
 			<b:container>
 				<br></br>
 
@@ -74,8 +74,10 @@
 								
 									<b:column span="9" >
 										
-									<p:outputLabel value="Descricao:    " />	
-									#{interacao.inDescricao}
+									<p:outputLabel value="Descricao:" />	
+									<h:outputText escape="false" value="#{interacao.inDescricao}" />
+									
+									
 										
 									</b:column>
 
@@ -85,6 +87,7 @@
 										<br />
 									</b:column>
 									<br/>
+								
 									
 
 										<p:outputLabel value="Usuario: " 
@@ -147,21 +150,25 @@
 
 						</b:row>
 						
-						<b:row style="display:flex;" rendered="#{interacaoOsBean.rowUsuarioTeste}">
+						<b:row style="display:flex; float:right; margin-right: 5%;" rendered="#{interacaoOsBean.rowUsuarioTeste}">
 
-							<b:commandLink value="Aprovar" look="success"
-								style=" width: 16%; height: fit-content; margin-top: 23px; margin-left: 2%;" />
-								
 							<b:commandLink value="Reprovar" look="danger"
-								style=" width: 16%; height: fit-content; margin-top: 23px; margin-left: 2%;" />
+								style=" width: -1%; height: fit-content; margin-top: 23px; margin-left: 2%;" 
+								action="#{interacaoOsBean.reprovarChamado}" />
+							
+							<b:commandLink value="Aprovar" look="success"
+								style=" width: -1%; height: fit-content; margin-top: 23px; margin-left: 2%;padding-left: 15px;
+    							padding-right: 22px;" action="#{interacaoOsBean.fecharChamado}" />
+								
 
 						</b:row>
 						
 						
-						<b:row style="display:flex;" rendered="#{interacaoOsBean.rowUsuario}">
+						<b:row style="display:flex; float:right; margin-right: 5%;" rendered="#{interacaoOsBean.rowUsuario}">
 
 							<b:commandLink value="Enviar" look="success"
-								style=" width: 16%; height: fit-content; margin-left: 3%;" />
+								style=" width: 16%; height: fit-content; margin-left: 3%;"
+								action="#{interacaoOsBean.gravarInteracaoUsuario()}" />
 								
 						</b:row>
 						

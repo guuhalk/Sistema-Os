@@ -44,6 +44,7 @@ public class InteracaoOsBean extends GenericBean {
 			perfilUsuarioLogado = buscaUsuarioSessao().getPrfId().getPrfId();
 			listaDeInteracao = new InteracaoOsDao().buscarInteracaoDoChamado(os.getOsId());
 			validaRowDeRespostaChamado();
+			descricaoDaInteracao ="";
 		
 			
 		}else {
@@ -70,11 +71,13 @@ public class InteracaoOsBean extends GenericBean {
 	public void gravarInteracaoAnalista() {
 		
 		if(statusOs != null) {
-			if(descricaoDaInteracao != null) {
+			if(!descricaoDaInteracao.contains("") || descricaoDaInteracao != "" || !descricaoDaInteracao.isEmpty()) {
 				
 				if (new InteracaoOsDao().gravarInteracaoDoAnalista(osSelecionada.getOsId(), idUsuarioLogado, descricaoDaInteracao,statusOs)) {
 					listaDeInteracao = new InteracaoOsDao().buscarInteracaoDoChamado(osSelecionada.getOsId());
 					menssagemSucesso("Interação feita com sucesso.");
+					descricaoDaInteracao = "";
+					statusOs = 0;
 					
 				}else {
 					menssagemErro("Erro ao fazer a interação.");
@@ -90,7 +93,78 @@ public class InteracaoOsBean extends GenericBean {
 		}
 	}
 	
+	
+	public void gravarInteracaoUsuario() {
+	
+			if(!descricaoDaInteracao.contains("") || descricaoDaInteracao != "" || !descricaoDaInteracao.isEmpty()) {
+				
+				if (new InteracaoOsDao().gravarInteracaoDoAnalista(osSelecionada.getOsId(), idUsuarioLogado, descricaoDaInteracao,1)) {
+					listaDeInteracao = new InteracaoOsDao().buscarInteracaoDoChamado(osSelecionada.getOsId());
+					menssagemSucesso("Interação feita com sucesso.");
+					descricaoDaInteracao = "";
+					
+					
+				}else {
+					menssagemErro("Erro ao fazer a interação.");
+				}
+				
+				
+			}else {
+				menssagemAviso("Favor inserir uma descrição.");
+			}
+			
 
+	}
+	
+	
+	public void reprovarChamado() {
+		
+		if(!descricaoDaInteracao.contains("") || descricaoDaInteracao != "" || !descricaoDaInteracao.isEmpty()) {
+			
+			if (new InteracaoOsDao().reprovarChamado(osSelecionada.getOsId())) {
+				
+				menssagemSucesso("Chamado foi reprovado com sucesso.");
+				descricaoDaInteracao = "";
+				
+				
+			}else {
+				menssagemErro("Erro ao reprovar o chamado.");
+				descricaoDaInteracao = "";
+			}
+			
+			
+		}else {
+			menssagemAviso("Favor inserir uma descrição.");
+		}
+		
+	}
+	
+	
+	
+	public void  fecharChamado() {
+		
+		if(!descricaoDaInteracao.contains("") || descricaoDaInteracao != "" || !descricaoDaInteracao.isEmpty()) {
+			
+			if (new InteracaoOsDao().fecharChamado(osSelecionada.getOsId())) {
+				
+				menssagemSucesso("Chamado foi fechado com sucesso.");
+				descricaoDaInteracao = "";
+				
+				
+			}else {
+				menssagemErro("Erro ao fechar o chamado.");
+				descricaoDaInteracao = "";
+			}
+			
+			
+		}else {
+			menssagemAviso("Favor inserir uma descrição.");
+		}
+
+	}
+	
+	
+	
 
 	public void validaRowDeRespostaChamado() {
 		if(perfilUsuarioLogado != 1 && perfilUsuarioLogado != 3) {	

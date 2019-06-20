@@ -26,14 +26,33 @@
 
 
 				<b:column span="2">
+				
+					<b:commandLink look="default" value="" icon="arrow-left"
+							style=" padding: 3%; font-size: 90%;"
+							action="#{newOsBean.redirecionarParaIndex}" />
+					
 					<b:commandLink look="default" value="Pesquisar Os"
 						icon="glyphicon glyphicon-search"
-						style=" padding: 3%; font-size: 90%;" />
+						style=" padding: 3%; font-size: 90%;" />		
 
 					<b:commandLink look="success" value="Abrir Chamado"
 						icon="glyphicon glyphicon-plus"
 						style=" padding: 3%; font-size: 90%;"
-						onclick="$('.modalPseudoClass').modal();tableWidgetVar.DataTable().responsive.recalc()" />
+						onclick="$('.modalPseudoClass').modal();tableWidgetVar.DataTable().responsive.recalc()" 
+						rendered="#{newOsBean.botaoAbrirChamadoTrue}"
+						disabled="true"/>	
+						
+						
+					<b:commandLink look="success" value="Abrir Chamado"
+						icon="glyphicon glyphicon-plus" 
+						style=" padding: 3%; font-size: 90%;"
+						onclick="$('.modalPseudoClass').modal();tableWidgetVar.DataTable().responsive.recalc()"
+						rendered="#{newOsBean.botaoAbrirChamadoFalse}"
+						/>	
+						
+
+						
+		
 
 				</b:column>
 
@@ -44,23 +63,23 @@
 
 				<b:column span="10">
 					<b:row>
-						<b:column span="1">
+						<b:column span="1" visible=" large-screen,medium-screen">
 							<p:outputLabel value="Id" />
 						</b:column>
 
-						<b:column span="2">
+						<b:column span="2" visible=" large-screen,medium-screen">
 							<p:outputLabel value="Status" />
 						</b:column>
 
-						<b:column span="4">
+						<b:column span="4" visible=" large-screen,medium-screen">
 							<p:outputLabel value="Titulo" />
 						</b:column>
 
-						<b:column span="2">
+						<b:column span="2" visible=" large-screen,medium-screen">
 							<p:outputLabel value="Data" />
 						</b:column>
 						
-						<b:column span="2">
+						<b:column span="2" visible=" large-screen,medium-screen">
 							<p:outputLabel value="Ações" />
 						</b:column>
 					</b:row>
@@ -118,7 +137,7 @@
 
 				<p:fileUpload style="opacity: 0;" label="Enviar Anexo" value="#{newOsBean.upload}"
 					mode="simple" skinSimple="true" />
-				<br></br>
+				<br></br> 
 
 				<f:facet name="footer">
 					<div id="rodape" style="display: flex; float: right;">

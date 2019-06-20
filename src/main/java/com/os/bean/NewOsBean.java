@@ -1,6 +1,7 @@
 package com.os.bean;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.Base64;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class NewOsBean extends GenericBean {
 	private List<OsChamado> listaChamado;
 	private boolean botaoAlocarTrue;
 	private boolean botaoAlocarFalse;
+	private boolean botaoAbrirChamadoTrue;
+	private boolean botaoAbrirChamadoFalse;
+	
 	
 	
 	
@@ -39,13 +43,14 @@ public class NewOsBean extends GenericBean {
 		idUsuarioLogado = buscaUsuarioSessao().getUsuId();
 		nomeUsuarioLogado = buscaUsuarioSessao().getUsuNome();
 		listaChamado = new NewOsDao().buscarChamadoDoUsuario(nomeUsuarioLogado);
+		verificarSeTemMaisDeTresOsAberta();
 		
 		
 	}
 	
 	public void insereChamado() throws IOException {
 
-		verificaSePossuiAnexo();
+		
 		if(validaCampos()) {
 			
 			if(new NewOsDao().insereChamado(titulo, descricao, nomeUsuarioLogado, fileBlob,idUsuarioLogado)) {
@@ -59,6 +64,7 @@ public class NewOsBean extends GenericBean {
 		
 	}
 	
+
 	
 	@SuppressWarnings("unused")
 	public void verificaSePossuiAnexo() throws IOException {
@@ -73,6 +79,26 @@ public class NewOsBean extends GenericBean {
 			this.setFileBlob(Base64.getEncoder().encodeToString(file));		
 		}
 	}
+	
+	
+	
+	public void verificarSeTemMaisDeTresOsAberta() {
+		
+		BigInteger quantChamadoTeste = new NewOsDao().buscarQuantidadeDeChamadosEmTeste(nomeUsuarioLogado);
+
+		
+		if(quantChamadoTeste.intValue() <= 2 ) {
+			botaoAbrirChamadoTrue = false;
+			botaoAbrirChamadoFalse = true;
+		}else {
+			botaoAbrirChamadoFalse = false;
+			botaoAbrirChamadoTrue = true;	
+		}
+		
+	} 
+	
+	
+	
 	
 	public boolean validaCampos() {
 		
@@ -98,7 +124,13 @@ public class NewOsBean extends GenericBean {
 		}
 	}
 		
-
+	
+	
+	public void redirecionarParaIndex() {
+		
+		redirecionarPagina("../index.xhtml");
+		
+	}
 
 	
 	
@@ -116,13 +148,6 @@ public class NewOsBean extends GenericBean {
 		this.descricao = descricao;
 	}
 
-	public UploadedFile getUpload() {
-		return upload;
-	}
-
-	public void setUpload(UploadedFile upload) {
-		this.upload = upload;
-	}
 	public Integer getIdUsuarioLogado() {
 		return idUsuarioLogado;
 	}
@@ -161,6 +186,30 @@ public class NewOsBean extends GenericBean {
 
 	public void setBotaoAlocarFalse(boolean botaoAlocarFalse) {
 		this.botaoAlocarFalse = botaoAlocarFalse;
+	}
+
+	public boolean getBotaoAbrirChamadoTrue() {
+		return botaoAbrirChamadoTrue;
+	}
+
+	public void setBotaoAbrirChamadoTrue(boolean botaoAbrirChamadoTrue) {
+		this.botaoAbrirChamadoTrue = botaoAbrirChamadoTrue;
+	}
+
+	public boolean getBotaoAbrirChamadoFalse() {
+		return botaoAbrirChamadoFalse;
+	}
+
+	public void setBotaoAbrirChamadoFalse(boolean botaoAbrirChamadoFalse) {
+		this.botaoAbrirChamadoFalse = botaoAbrirChamadoFalse;
+	}
+
+	public UploadedFile getUpload() {
+		return upload;
+	}
+
+	public void setUpload(UploadedFile upload) {
+		this.upload = upload;
 	}
 
 

@@ -28,7 +28,8 @@ public class LogginFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-	
+		request.setCharacterEncoding("ISO-8859-1");
+		
 		if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse)) {
 			HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 			HttpServletResponse httpServletResponse = (HttpServletResponse) response;

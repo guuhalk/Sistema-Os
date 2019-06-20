@@ -52,7 +52,7 @@ public class AnalistaOsBean extends GenericBean{
 		quantidadeChamadosAguardandoUsuario = new AnalistaOsDao().buscarQuantidadeDeChamadosAguardandoUsuario();
 		quantidadeChamadosAguardandoTerceiros = new AnalistaOsDao().buscarQuantidadeDeChamadosAguardandoTerceiros();
 		quantidadeChamadosTeste = new AnalistaOsDao().buscarQuantidadeDeChamadosEmTeste();	
-		listaChamadoDesenvolvimento = new AnalistaOsDao().buscarChamadosEmDesenvolvimento(usuarioLogado);
+		ordenaChamadosEmDesenvolvimento ();
 		listaChamadoTeste = new AnalistaOsDao().buscarChamadosEmTeste(usuarioLogado);
 		listaChamadoAguardandoUsuario = new AnalistaOsDao().buscarChamadosAguardandoUsuarios(usuarioLogado);
 	 	listaChamadoAguardandoTerceiro = new AnalistaOsDao().buscarChamadosAguardandoTerceiros(usuarioLogado);
@@ -62,12 +62,25 @@ public class AnalistaOsBean extends GenericBean{
 	
 
 	
+	public void ordenaChamadosEmDesenvolvimento () {
+		
+		listaChamadoDesenvolvimento = new AnalistaOsDao().buscarChamadosEmDesenvolvimento(usuarioLogado);
+		
+		
+	}
+	
+	
 	public void redirecionarPaginasParaAlocar() {
 		redirecionarPagina("os-alocar.xhtml"); 
 	}
 	
 	public void redirecionarPaginasParaPesquisarOs() {
 		redirecionarPagina("os-pesquisar.xhtml"); 
+	}
+	
+	public void redirecionarParaIndex() {
+		redirecionarPagina("../index.xhtml");
+		
 	}
 
 	

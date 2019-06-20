@@ -110,6 +110,11 @@ public class AlocarOsBean  extends GenericBean{
 	public void redirecionarPaginasParaPesquisarOs() {
 		redirecionarPagina("os-pesquisar.xhtml"); 
 	}
+	
+	public void redirecionarPaginasOs() {
+		redirecionarPagina("os-analista.xhtml");
+
+	}
 
 	
 	// GATTERS AND SETTERS

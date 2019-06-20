@@ -191,4 +191,65 @@ public class InteracaoOsDao extends GenericDao<OsChamado> {
 	
 	
 	
+	public boolean fecharChamado (Integer osId){
+		EntityManager em = getEntityManager();
+		
+		try {
+			
+			em.getTransaction().begin();
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(" update os_chamado set os_status = 5 ");
+			sb.append(" where os_id = :osId  ");
+	
+			Query query = em.createNativeQuery(sb.toString());
+			
+			query.setParameter("osId", osId);
+			
+			query.executeUpdate();
+			em.getTransaction().commit();
+			return true;
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction();
+			return false;
+
+
+		}
+	}
+	
+	
+	public boolean reprovarChamado (Integer osId){
+		EntityManager em = getEntityManager();
+		
+		try {
+			
+			em.getTransaction().begin();
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(" update os_chamado set os_status = 6 ");
+			sb.append(" where os_id = :osId  ");
+	
+			Query query = em.createNativeQuery(sb.toString());
+			
+			query.setParameter("osId", osId);
+			
+			query.executeUpdate();
+			em.getTransaction().commit();
+			return true;
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction();
+			return false;
+
+
+		}
+	}
+	
+	
+	
 }
